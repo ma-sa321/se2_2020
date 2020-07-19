@@ -1,6 +1,19 @@
-import java.util.Collection;
+package forest;
 
-public class Model extends Object {
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Model extends Object 
+{
 
 	private ArrayList<View> dependents;
 
