@@ -10,7 +10,6 @@ Forkしてる人向け
 自分のリポジトリを最新にする方法
 git fetch ma-sa321のremote名(人による)          //ma-sa321のリポジトリと自身のリポジトリの差分情報を取得
 git merge ma-sa321のremote名(人による)/master
-git push origin master
 
 ブランチの切り方
 
