@@ -1,9 +1,11 @@
 package forest;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+
 /**
  * 樹状整列におけるMVCのモデル（M）を担うクラスになります。
 */
@@ -40,7 +42,27 @@ public class Branch extends Object
      */
     public void draw(Graphics aGraphics)
     {
-        
+        Graphics2D aGraphics2d = (Graphics2D)aGraphics;
+        aGraphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        aGraphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        // ブランチ（枝）の始点座標を計算する。
+        Point location = this.start.getLocation();
+        Point extent = this.start.getExtent();
+        Integer x1 = location.x + extent.x;
+        Integer y1 = location.y + (extent.y / 2);
+
+        // ブランチ（枝）の終点座標を計算する。
+        location = this.end.getLocation();
+        extent = this.end.getExtent();
+        Integer x2 = location.x;
+        Integer y2 = location.y + (extent.y / 2);
+
+        // ブランチ（枝）の線を描画コンテクストへ描き出す。
+        aGraphics.setColor(Color.BLACK);
+        aGraphics.drawLine(x1, y1, x2, y2);
+
+        return;
     }
 
     /**
