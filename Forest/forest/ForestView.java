@@ -8,11 +8,6 @@ public class View {
 
 	private Point offset;
 
-	private Controller controller;
-
-	private Model model;
-
-	private Model model;
 
 	private Collection<FramePoint> framePoint;
 
@@ -41,7 +36,17 @@ public class View {
 	 *  
 	 */
 	public String toString() {
-		return null;
+		StringBuffer aBuffer = new StringBuffer();
+		Class<?> aClass = this.getClass();
+		aBuffer.append(aClass.getName());
+		aBuffer.append("[model=");
+		aBuffer.append(model);
+		aBuffer.append(",offset=");
+		aBuffer.append(offset);
+		aBuffer.append(",controller=");
+		aBuffer.append(controller);
+		aBuffer.append("]");
+		return aBuffer.toString();
 	}
 
 	public void update() {
@@ -51,7 +56,7 @@ public class View {
 	/**
 	 *  
 	 */
-	public Node whichOfNodes(int aPoint Point) {
+	public Node whichOfNodes(Point aPoint) {
 		return null;
 	}
 
