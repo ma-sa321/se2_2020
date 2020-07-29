@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+
 public class Node  extends Object{
 
 	private Point extent;
