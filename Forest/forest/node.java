@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class node {
+public class Node  extends Object{
 
 	private Point extent;
 
@@ -64,11 +64,13 @@ public class node {
 	}
 
 	protected int stringHeight(String string) {
-
+		FontMetrics aFontMetrics = this.getFontMetrics(string);
+		return aFontMetrics.getHeight();
 	}
 
 	protected int stringWidth(String string) {
-
+		FontMetrics aFontMetrics = this.getFontMetrics(string);
+		return aFontMetrics.getWidth();
 	}
 
 	public String toString() {
