@@ -1,3 +1,5 @@
+package forest;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -7,11 +9,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 /*
- * ノードを追加するメソッド
- * @param aNode　ノード
+ * Forestクラス
  *
  */
-public class Forest {
+public class Forest extends Object{
 
 	private ArrayList<Branch> branches;
 
@@ -20,7 +21,8 @@ public class Forest {
 	private Rectangle bounds;
 
 	/**
-	 *  
+	 * Forestのコンストラクタ 
+	 *
 	 */
 	public Forest() {
 		this.nodes = new ArrayList<Node>();
@@ -68,14 +70,14 @@ public class Forest {
 	 *  
 	 */
 	public void arrange(Model aModel) {
-
+		return;
 	}
 
 	/**
 	 *  
 	 */
-	public void arrange(Node aNode, Point aPoint, Model aModel) {
-
+	protected Dimension arrange(Node aNode, Point aPoint, Model aModel) {
+		return null;
 	}
 
 	public Rectangle bounds() {
@@ -86,7 +88,7 @@ public class Forest {
 	 *  
 	 */
 	public void draw(Graphics aGraphics) {
-
+		return;
 	}
 
 	/**
@@ -99,7 +101,7 @@ public class Forest {
 	}
 
 	public protected void propagate(Model aModel) {
-		return null;
+		return;
 	}
 
 	public ArrayList<Node> rootNodes() {
