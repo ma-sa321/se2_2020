@@ -150,6 +150,11 @@ public class Forest {
 		return nodeList;
 	}
 
+	/**
+	 * クラスを文字列に変換するメソッド
+	 * return aBuffer.toString()
+	 *
+	 */
 	public String toString() {
 		StringBuffer aBuffer = new StringBuffer();
 		Class<?> aClass = this.getClass();
@@ -166,6 +171,11 @@ public class Forest {
 		return aBuffer.toString();
 	}
 
+	/**
+	 * 座標にノードが存在するかどうかを調べるメソッド
+	 * return aNode もしくはnull
+	 *
+	 */
 	public Node whichOfNodes(Point aPoint) {
 		for(Node aNode : this.nodes){
 			Rectangle aRectangle = aNode.getBounds();
