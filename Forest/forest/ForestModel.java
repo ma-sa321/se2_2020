@@ -132,7 +132,7 @@ public class ForestModel extends Model
 		List<String> trees = new ArrayList<String>();
 		List<String> nodes = new ArrayList<String>();
 		List<String> branches = new ArrayList<String>();
-		ValueHolder<String> string new ValueHolder<String>(null);
+		ValueHolder<String> string = new ValueHolder<String>(null);
 		new Condition(() ->
 		{
 			string.set(this.readLine(readStream));

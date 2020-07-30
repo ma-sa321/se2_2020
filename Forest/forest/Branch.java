@@ -43,8 +43,8 @@ public class Branch extends Object
     public void draw(Graphics aGraphics)
     {
         Graphics2D aGraphics2d = (Graphics2D)aGraphics;
-        aGraphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        aGraphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        aGraphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        aGraphics2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         // ブランチ（枝）の始点座標を計算する。
         Point location = this.start.getLocation();
