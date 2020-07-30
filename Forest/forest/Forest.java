@@ -151,7 +151,19 @@ public class Forest {
 	}
 
 	public String toString() {
-		return null;
+		StringBuffer aBuffer = new StringBuffer();
+		Class<?> aClass = this.getClass();
+
+		aBuffer.append(aClass.getName());
+		aBuffer.append("[bounds=");
+		aBuffer.append(this.bounds);
+		aBuffer.append(", nodes=");
+		aBuffer.append(this.nodes);
+		aBuffer.append(", branches=");
+		aBuffer.append(this.branches);
+		aBuffer.append("]");
+
+		return aBuffer.toString();
 	}
 
 	public Node whichOfNodes(Point aPoint) {
