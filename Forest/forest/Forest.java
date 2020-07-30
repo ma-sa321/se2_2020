@@ -69,14 +69,14 @@ public class Forest extends Object{
 	/**
 	 *  
 	 */
-	public void arrange(Model aModel) {
+	public void arrange(ForestModel aModel) {
 		return;
 	}
 
 	/**
 	 *  
 	 */
-	protected Dimension arrange(Node aNode, Point aPoint, Model aModel) {
+	protected Dimension arrange(Node aNode, Point aPoint, ForestModel aModel) {
 		return null;
 	}
 
@@ -100,7 +100,7 @@ public class Forest extends Object{
 		return;
 	}
 
-	public protected void propagate(Model aModel) {
+	protected void propagate(ForestModel aModel) {
 		return;
 	}
 
