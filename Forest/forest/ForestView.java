@@ -1,15 +1,22 @@
 package forest;
 
 //import java.awt.*;青木先生にケンカを売るやつw
+
+import java.util.Collection;
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.Point;
 
-public class ForestView extends ForestModel{
+public class ForestView  extends Model{
 
 	private ForestController controller;
 

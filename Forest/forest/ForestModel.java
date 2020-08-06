@@ -159,6 +159,8 @@ public class ForestModel extends Model
 			{
 				string.set(this.readLine(readStream));
 				new Condition(() ->
+					string.get() != null && !(string.get().equals(Constants.TagOfNodes))
+				).whileTrue(() ->
 				{
 					nodes.add(string.get());
 					string.set(this.readLine(readStream));
@@ -181,10 +183,10 @@ public class ForestModel extends Model
 		});
 
 		// ノードたちを生成して登録する。
-		Node[] nodeArray = new Node[node.size()];
+		Node[] nodeArray = new Node[nodes.size()];
 		nodes.forEach((String aString) ->
 		{
-			String[] stringsArray = aString.splite(", ");
+			String[] stringArray = aString.split(", ");
 			new Condition(() -> stringArray.length == 2).ifTrue(() ->
 			{
 				Integer anIndex = Integer.parseInt(stringArray[0]) - 1;
@@ -202,7 +204,8 @@ public class ForestModel extends Model
 			{
 				Node fromNode = nodeArray[Integer.parseInt(stringArray[0]) - 1];
 				Node toNode = nodeArray[Integer.parseInt(stringArray[1]) - 1];
-				Branch aBranch = new Branch(formNode, toNode);
+
+				Branch aBranch = new Branch(fromNode, toNode);
 				this.forest.addBranch(aBranch);
 			});
 		});
