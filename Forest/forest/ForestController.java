@@ -29,11 +29,6 @@ public class Controller {
 	private View view;
 
 	/*
-	 * 樹状整列におけるMVCのモデル(M)を記憶するフィールドです。
-	 */
-	private Model model;
-
-	/*
 	 * 
 	 */
 	private MouseInputAdapter mouseInputAdapter;
@@ -53,16 +48,27 @@ public class Controller {
 	public void mouseClicked(MouseEvent aMouseEvent) {
 		Point aPoint = aMouseEvent.getPoint();
 		aPoint.translate(view.scrollAmount().x, view.scrollAmount().y);
-		System.out.println(aPoint);
+		// System.out.println(aPoint);
+		String className = model.whichOfNodes(aPoint).getName();
+		if(!className.isNull) System.out.println(className);
 		return;
-		// 変更が必要
 	}
 
 	/*
 	 * マウスドラッグ（ボタンを押しながら移動）したときに動作するメソッドです。
 	 */
 	public void mouseDragged(MouseEvent aMouseEvent) {
-		// 変更が必要
+		Cursor aCursor = Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
+		Component aComponent = (Component)aMouseEvent.getSource();
+		aComponent.setCursor(aCursor);
+		current = aMouseEvent.getPoint();
+		int x = current.x - previous.x;
+		int y = current.y - previous.y;
+		Point point = new Point(x, y);
+		view.scrollBy(point);
+		view.repaint();
+		previous = current;
+		return;
 	}
 
 	/*
@@ -90,14 +96,14 @@ public class Controller {
 	 * マウスのボタンが押されたときに動作するメソッドです。
 	 */
 	public void mousePressed(MouseEvent aMouseEvent) {
-		// 変更必要
+		return;
 	}
 
 	/*
 	 * マウスのボタンが離されたときに動作するメソッドです。
 	 */
 	public void mouseReleased(MouseEvent aMouseEvent) {
-		// 変更必要
+		return;
 	}
 
 	/*
