@@ -70,6 +70,21 @@ public class Forest extends Object{
 	 *  
 	 */
 	public void arrange(ForestModel aModel) {
+		Integer counter = 0;
+		for(Node aNode: this.nodes){
+			Integer height = aNode.getExtent().height + Constants.Margin.y + Constants.Interval.y;
+			aNode.setStatus(Constants.Unvisited);
+			aNode.setLocation(new Point(0, height*counter++));
+		}
+
+		Point aPoint = new Point(0,0);
+		ArrayList<Node> rootNodes = this.rootNodes();
+		for(Node aNode: rootNodes){
+			Dimension aDimension = this.arrange(aNode, aPoint, aModel);
+			aPoint = new Point(0, aDimension.height + Constants.Interval.y);
+		}
+
+		this.flushBounds();
 		return;
 	}
 
@@ -77,18 +92,66 @@ public class Forest extends Object{
 	 *  
 	 */
 	protected Dimension arrange(Node aNode, Point aPoint, ForestModel aModel) {
-		return null;
+		aNode.setStatus(Constants.Visited);
+		aNode.setLocation(aPoint);
+		this.propagate(aModel);
+
+		Dimension extent = aNode.getExtent();
+		ArrayList<Node> subNodes = this.subNodes(aNode);
+		if (subNodes.isEmpty()) {
+			Integer width = aPoint.x + extent.width;
+			Integer height = aPoint.y + extent.height;
+			extent = new Dimension(width, height);
+
+			return extent;
+		}
+
+		Integer width = aPoint.x + extent.width;
+		Integer height = aPoint.y;
+		Integer x = width + Constants.Interval.x;
+		Integer y = height;
+		Integer top = height;
+
+		for (Node subNode: subNodes) {
+			if (subNode.getStatus() == Constants.UnVisited) {
+				extent = this.arrange(subNode, new Point(x, y), aModel);
+				Integer h = y + subNode.getExtent().height;
+				y = extent.height > h ? extent.height : h;
+				width = extent.width> width ? extent.width : width;
+				height = extent.height > height ? extent.height : height;
+				y = y + Constants.Interval.y;
+			}
+		}
+
+		y = y - Constants.Interval.y;
+		Integer h = aNode.getExtent().height;
+		if (y > (aPoint.y + h)) {
+			y = top + ((y - top - h) / 2);
+			aNode.setLocation(new Point(aPoint.x, y));
+			this.propagate(aModel);
+		}
+		height = height > h ? height : h;
+		extent = new Dimension(width, height);
+
+		return extent;
 	}
 
+	/**
+	 *  
+	 */
 	public Rectangle bounds() {
-		return null;
+		if (this.bounds == null) this.bounds = new Rectangle();
+		this.nodes.forEach(aNode -> this.bounds.add(aNode.getBounds()));
+
+		return this.bounds;
 	}
 
 	/**
 	 *  
 	 */
 	public void draw(Graphics aGraphics) {
-		return;
+		this.branches.forEach( aBranch -> aBranch.draw(aGraphics) );
+		this.nodes.forEach( aNode -> aNode.draw(aGraphics) );
 	}
 
 	/**
