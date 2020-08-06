@@ -204,6 +204,7 @@ public class ForestModel extends Model
 			{
 				Node fromNode = nodeArray[Integer.parseInt(stringArray[0]) - 1];
 				Node toNode = nodeArray[Integer.parseInt(stringArray[1]) - 1];
+
 				Branch aBranch = new Branch(fromNode, toNode);
 				this.forest.addBranch(aBranch);
 			});

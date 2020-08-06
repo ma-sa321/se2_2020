@@ -70,6 +70,7 @@ public class Forest extends Object{
 	 *  
 	 */
 	public void arrange(ForestModel aModel) {
+
 		Integer counter = 0;
 		for(Node aNode: this.nodes){
 			Integer height = aNode.getExtent().height + Constants.Margin.y + Constants.Interval.y;
