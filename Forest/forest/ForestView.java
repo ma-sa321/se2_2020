@@ -1,5 +1,6 @@
 package forest;
 
+//import java.awt.*;青木先生にケンカを売るやつw
 import java.awt.Graphics;
 import java.awt.Point;
 import java.io.BufferedReader;
