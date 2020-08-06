@@ -1,91 +1,229 @@
 package forest;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.FontMetrics;
+import java.awt.Font;
 
-public class Node  extends Object{
+import javax.swing.SwingUtilities;
 
-	private Point extent;
+/**
+ * 樹状整列におけるノード（節）を担うクラス。
+ */
+@SuppressWarnings("serial")
+public class Node extends Component
+{	
+	/**
+	 * ノード名：ラベル文字列を記憶するフィールド。
+	 */
+	private String name;
 
+	/**
+	 * ノードの場所（位置：座標）を記憶するフィールド。
+	 */
 	private Point location;
 
-	private Stirng name;
+	/**
+	 * ノードの大きさ（幅と高さ）を記憶するフィールド。
+	 */
+	private Point extent;
 
+	/**
+	 * 樹状整列する際のノードの状態を記憶するフィールド。
+	 */
 	private Integer status;
 
-	public Node(String aString) {
+	/**
+	 * ノードにおいてラベルを描く際の枠線からの余裕（マージン）を表す。
+	 */
+	private Point margin = new Point(2, 1);
 
+	/**
+	 * ノードを描く際のラベルのフォントを表します。
+	 */
+	private Font defaultFont = new Font("Monospaced", Font.PLAIN, 12);
+
+	/** 
+	 * このクラスのインスタンスを生成するコンストラクタ。
+	 * @param aString ノード名：ラベル文字列
+	*/
+	public Node(String aString)
+	{
+		super();
+
+		this.setName(aString);
+		this.setLocation(new Point(0,0));
+
+		// ノード名のラベル文字列のフォント情報から幅と高さを計算する。
+		Integer width = this.stringWidth(this.name) + (this.margin.x * 2);
+		Integer height = this.stringHeight(this.name) + (this.margin.y * 2);
+		this.setExtent(new Point(width, height));
+
+		// 樹状整列のノードのステータス（状態）を未定として初期化する。
+		this.setStatus(-1);
+
+		return;
 	}
 
-	public void draw(Graphics aGraphics) {
+	/**
+	 * ノード（節）を描画するメソッド。
+	 * @param aGraphics グラフィックス（描画コンテクスト）
+	 */
+	public void draw(Graphics aGraphics)
+	{
+		Graphics2D aGraphics2D = (Graphics2D)aGraphics;
+		aGraphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		aGraphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
+		// ノード（節）の枠線を描き出す。
+		aGraphics.setColor(Color.BLACK);
+		aGraphics.drawRect(this.location.x, this.location.y, this.extent.x - 1, this.extent.y - 1);
+
+		// ノード（節）の名前（ラベル）を描き出すための座標を計算する。
+		String aString = this.getName();
+		Point aPoint = (this.getBounds()).getLocation();
+		aPoint.translate(this.margin.x, this.extent.y - this.margin.y - 2);
+
+		// ノード（節）の名前（ラベル）描き出す。
+		aGraphics.setFont(this.defaultFont);
+		aGraphics.drawString(aString, aPoint.x, aPoint.y);
+
+		return;
 	}
+	/**
+	 * ノード（節）の描画領域を応答するメソッド。
+	 * @return ノード（節）の描画領域（Rectangleのインスタンス）
+	 */
+	@Override
+	public Rectangle getBounds()
+	{
+		
+		Rectangle aRectangle = new Rectangle(this.location.x, this.location.y, this.extent.x, this.extent.y);
 
-	public Rectangle getBounds() {
-		Rectangle aRectangle = new Rectangle(this.location, this.extent);
 		return aRectangle;
 	}
-
-	public Point getExtent() {
+	/**
+	 * ノード（節）の大きさを応答するメソッド。
+	 * @return ノード（節）の大きさ（幅と高さ）
+	 */
+	public Point getExtent()
+	{
 		return this.extent;
 	}
 
-	public Point getLocation() {
+	/**
+	 * ノード（節）の位置を応答するメソッド。
+	 * @return ノード（節）の位置（座標）
+	 */
+	public Point getLocation()
+	{
 		return this.location;
 	}
-
-	public String getName() {
+	/**
+	 * ノード（節）の名前を応答するメソッド。
+	 * @return ノード名（ラベル文字列）
+	 */
+	@Override
+	public String getName()
+	{
 		return this.name;
 	}
 
-	public Integer getStatus() {
+	/**
+	 * ノード（節）の状態を応答するメソッド。
+	 * @return ノードの状態
+	 */
+	public Integer getStatus()
+	{
 		return this.status;
 	}
+	/**
+	 * ノード（節）の大きさを設定するメソッド。
+	 * @param aPoint ノードの大きさ（幅と高さ）
+	 */
+	public void setExtent(Point aPoint)
+	{
+		this.extent = aPoint;
 
-	public void setExtent(Point aPoint) {
-		this.extent = aaPoint;
 		return;
 	}
 
-	public void setLocation(Point aPoint) {
+	/**
+	 * ノード（節）の位置を設定するメソッド。
+	 * @param aPoint ノードの位置（座標）
+	 */
+	@Override
+	public void setLocation(Point aPoint)
+	{
 		this.location = aPoint;
+
 		return;
 	}
 
-	public void setName(String aString) {
+	/**
+	 * ノード（節）の名前を設定するメソッド。
+	 * @param aString ノードの名前（ラベル）
+	 */
+	@Override
+	public void setName(String aString)
+	{
 		this.name = aString;
+
 		return;
 	}
 
-	public void setStatus(Integer anInteger) {
+	/**
+	 * ノード（節）の状態を設定するメソッド。
+	 * @param anInteger ノードの状態
+	 */
+	public void setStatus(Integer anInteger)
+	{
 		this.status = anInteger;
+
 		return;
 	}
 
-	protected int stringHeight(String string) {
-		FontMetrics aFontMetrics = this.getFontMetrics(string);
-		return aFontMetrics.getHeight();
+	/**
+	 * 文字列の高さを応答するメソッド。
+	 * @param string 文字列
+	 * @return 文字列の高さ
+	 */
+	protected int stringHeight(String string)
+	{
+		return this.defaultFont.getSize();
 	}
 
-	protected int stringWidth(String string) {
-		FontMetrics aFontMetrics = this.getFontMetrics(string);
-		return aFontMetrics.getWidth();
+	/**
+	 * 文字列の幅を応答するメソッド。
+	 * @param string 文字列
+	 * @return 文字列の幅
+	 */
+	protected int stringWidth(String string)
+	{
+		FontMetrics fontMetrics = this.getFontMetrics(this.defaultFont);
+
+		return SwingUtilities.computeStringWidth(fontMetrics, string);
 	}
 
-	public String toString() {
-		StringBuffer aBuffer = new StringBuffer();
+	/**
+	 * 自分自身を文字列に変換するメソッド。
+	 * @return 自分自身を表す文字列
+	 */
+	public String toString() 
+	{
 		Class<?> aClass = this.getClass();
+
+		StringBuffer aBuffer = new StringBuffer();
 		aBuffer.append(aClass.getName());
-		aBuffer.append("[name=");
+		aBuffer.append("[");
 		aBuffer.append(this.name);
-		aBuffer.append(",location=");
-		aBuffer.append(this.location);
-		aBuffer.append(",extent=");
-		aBuffer.append(this.extent);
-		aBuffer.append(",status=");
-		aBuffer.append(this.status);
 		aBuffer.append("]");
+
 		return aBuffer.toString();
 	}
 

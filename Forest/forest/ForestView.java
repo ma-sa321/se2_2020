@@ -14,14 +14,12 @@ import java.awt.Point;
 
 public class ForestView  extends Model{
 
-	private Controller controller;
+	private ForestController controller;
 
-	private Model model;
+	private ForestModel model;
 
 	private Point offset;
 
-
-	private Collection<FramePoint> framePoint;
 
 	/**
 	 *  

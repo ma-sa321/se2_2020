@@ -49,8 +49,8 @@ public class Controller {
 		Point aPoint = aMouseEvent.getPoint();
 		aPoint.translate(view.scrollAmount().x, view.scrollAmount().y);
 		// System.out.println(aPoint);
-		String className = model.whichOfNodes(aPoint).getName();
-		if(!className.isNull) System.out.println(className);
+		String nodeName = model.whichOfNodes(aPoint).getName();
+		if(!className.isNull()) System.out.println(nodeName);
 		return;
 	}
 
