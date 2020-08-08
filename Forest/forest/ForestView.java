@@ -1,3 +1,5 @@
+package forest;
+
 import java.util.Collection;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,8 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Point;
+import mvc.Model;
 
-public class ForestView  extends Model{
+public class ForestView extends Model{
 
 	private ForestController controller;
 
@@ -36,7 +39,7 @@ public class ForestView  extends Model{
 		int height = this.getHeight();
 		aGraphics.setColor(Color.lightGray);
 		aGraphics.fillRect(0, 0, width, height);
-		ForestModel aModel = this.model;
+		model aModel = this.model;
 		if (aModel == null) {
 			 return; 
 		}

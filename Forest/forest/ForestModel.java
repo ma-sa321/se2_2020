@@ -14,8 +14,8 @@ import java.util.List;
 
 import mvc.Model;
 import mvc.View;
-import condition.Condition;
-import condition.ValueHolder;
+import java.util.concurrent.locks.Condition;
+// import org.seasar.framework.util.tiger.ValueHolder;
 
 /**
  * 樹状整列におけるMVCのモデル（M）を担うクラス。
