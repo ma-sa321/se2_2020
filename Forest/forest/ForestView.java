@@ -39,7 +39,7 @@ public class ForestView extends Model{
 		int height = this.getHeight();
 		aGraphics.setColor(Color.lightGray);
 		aGraphics.fillRect(0, 0, width, height);
-		model aModel = this.model;
+		ForestModel aModel = this.model;
 		if (aModel == null) {
 			 return; 
 		}
