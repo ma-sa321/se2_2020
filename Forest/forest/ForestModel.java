@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,8 +16,6 @@ import java.util.List;
 
 import mvc.Model;
 import mvc.View;
-import java.util.concurrent.locks.Condition;
-// import org.seasar.framework.util.tiger.ValueHolder;
 
 /**
  * 樹状整列におけるMVCのモデル（M）を担うクラス。
@@ -37,28 +37,18 @@ public class ForestModel extends Model
 
 		// フォレストのインスタンスを生成して保持し、樹状整列データファイルを読み込み、樹状整列させる。
 		this.forest = new Forest();
-		ValueHolder<BufferedReader> readStream = new ValueHolder<BufferedReader>(null);
+
 		try
 		{
-			readStream.set(new BufferedReader(new FileReader(aFile)));
-			this.read(readStream.get());
+			BufferedReader readStream = new BufferedReader(new InputStreamReader(new FileInputStream(aFile)));
+			this.read(readStream);
+			readStream.close();
+
 		}
 		catch (FileNotFoundException anException)
 		{
 			System.err.println(anException);
 			throw new RuntimeException(anException);
-		}
-		finally
-		{
-			new Condition(() -> readStream.get() != null).ifTrue(() ->
-			{
-				try { readStream.get().close(); }
-				catch(IOException anException)
-				{
-					System.err.println(anException);
-					throw new RuntimeException(anException);
-				}
-			});
 		}
 		this.arrange();
 
@@ -132,21 +122,49 @@ public class ForestModel extends Model
 		List<String> trees = new ArrayList<String>();
 		List<String> nodes = new ArrayList<String>();
 		List<String> branches = new ArrayList<String>();
-		ValueHolder<String> string = new ValueHolder<String>(null);
+		String string = new String();
+		// treesかnodesかbranchesのどの状態か区別する
+		String status = new String();
+		// 一行ずつ読み込む
+		while((string = readStream.readLine()) != null)
+		{
+			switch(string) {
+				case Constants.TagOfTrees:
+					status = Constants.TagOfTrees;
+					string = readStream.readLine();
+					break;
+				case Constants.TagOfNodes:
+					status = Constants.TagOfNodes;
+					string = readStream.readLine();
+					break;
+				case Constants.TagOfBranches:
+					status = Constants.TagOfBranches;
+					string = readStream.readLine();
+					break;
+			}
+			if(status.equals(Constants.TagOfTrees)) {
+				trees.add(string);
+			} else if(status.equals(Constants.TagOfNodes)) {
+				nodes.add(string);
+			} else if(status.equals(Constants.TagOfBranches)) {
+				branches.add(string);
+			}
+		}
+		/**********
 		new Condition(() ->
 		{
 			string.set(this.readLine(readStream));
 			return (string.get()) != null;
 		}).whileTrue(() ->
 		{
-			new Condition(() -> 
+			new Condition(() ->
 				string.get().equals(Constants.TagOfTrees)
-			).ifTrue(() -> 
+			).ifTrue(() ->
 			{
 				string.set(this.readLine(readStream));
-				new Condition(() -> 
+				new Condition(() ->
 					string.get() != null && !(string.get().equals(Constants.TagOfNodes))
-				).whileTrue(() -> 
+				).whileTrue(() ->
 				{
 					trees.add(string.get());
 					string.set(this.readLine(readStream));
@@ -154,8 +172,8 @@ public class ForestModel extends Model
 			});
 
 			new Condition(() ->
-				string.get() != null && string.get().equals(Constants.TagOfNodes)  
-			).whileTrue(() -> 
+				string.get() != null && string.get().equals(Constants.TagOfNodes)
+			).whileTrue(() ->
 			{
 				string.set(this.readLine(readStream));
 				new Condition(() ->
@@ -182,8 +200,24 @@ public class ForestModel extends Model
 			});
 		});
 
+		 **********/
+
 		// ノードたちを生成して登録する。
-		Node[] nodeArray = new Node[nodes.size()];
+		Node[] nodeArray = new Node[nodes.size()-1];
+
+		for(String node : nodes)
+		{
+			String[] stringArray = node.split(", ");
+			if(stringArray.length == 2)
+			{
+				Integer anIndex = Integer.parseInt(stringArray[0])-1; // Node番号を格納
+				Node aNode = new Node(stringArray[1]); // Nodeの名前を格納
+				nodeArray[anIndex] = aNode;
+				this.forest.addNode(aNode);
+			}
+		}
+
+		/**********
 		nodes.forEach((String aString) ->
 		{
 			String[] stringArray = aString.split(", ");
@@ -195,8 +229,21 @@ public class ForestModel extends Model
 				this.forest.addNode(aNode);
 			});
 		});
+		**********/
 
 		// ブランチたちを生成して登録する。
+		for(String branch : branches)
+		{
+			String[] stringArray = branch.split(", ");
+			if(stringArray.length == 2)
+			{
+				Node fromNode = nodeArray[Integer.parseInt(stringArray[0])-1];
+				Node toNode = nodeArray[Integer.parseInt(stringArray[1])-1];
+				Branch aBranch = new Branch(fromNode, toNode); // Nodeの名前を格納
+				this.forest.addBranch(aBranch);
+			}
+		}
+		/**********
 		branches.forEach((String aString) ->
 		{
 			String[] stringArray = aString.split(", ");
@@ -209,7 +256,7 @@ public class ForestModel extends Model
 				this.forest.addBranch(aBranch);
 			});
 		});
-
+		**********/
 		return;
 	}
 
@@ -218,18 +265,18 @@ public class ForestModel extends Model
 	 * @param readStream 樹状整列データファイルストリーム
 	 * @return 一行分の文字列
 	 */
-	protected String readLine(BufferedReader readStream)
-	{
-		String aString = null;
-		try { aString = readStream.readLine(); } 
-		catch (IOException anException) 
-		{
-			System.err.println(anException);
-			throw new RuntimeException(anException);
-		}
-
-		return aString;
-	}
+//	protected String readLine(BufferedReader readStream)
+//	{
+//		String aString = null;
+//		try { aString = readStream.readLine(); }
+//		catch (IOException anException)
+//		{
+//			System.err.println(anException);
+//			throw new RuntimeException(anException);
+//		}
+//
+//		return aString;
+//	}
 
 	/**
 	 * 樹状整列の根元（ルート）になるノードを探し出して応答するメソッド。
