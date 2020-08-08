@@ -45,11 +45,8 @@ public class ForestModel extends Model
 			readStream.close();
 
 		}
-		catch (FileNotFoundException anException)
-		{
-			System.err.println(anException);
-			throw new RuntimeException(anException);
-		}
+		catch (FileNotFoundException anException) { System.err.println(anException); }
+		catch (IOException anException) { System.err.println(anException); }
 		this.arrange();
 
 		return;
@@ -259,7 +256,6 @@ public class ForestModel extends Model
 		**********/
 		return;
 	}
-	
 	/**
 	 * 樹状整列の根元（ルート）になるノードを探し出して応答するメソッド。
 	 * @return ルートノード、ただし、見つからないときはnullを応答する。
