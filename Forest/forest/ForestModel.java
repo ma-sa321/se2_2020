@@ -259,25 +259,7 @@ public class ForestModel extends Model
 		**********/
 		return;
 	}
-
-	/**
-	 * 樹状整列データファイルストリームから一行分を読み出して応答するメソッド。
-	 * @param readStream 樹状整列データファイルストリーム
-	 * @return 一行分の文字列
-	 */
-//	protected String readLine(BufferedReader readStream)
-//	{
-//		String aString = null;
-//		try { aString = readStream.readLine(); }
-//		catch (IOException anException)
-//		{
-//			System.err.println(anException);
-//			throw new RuntimeException(anException);
-//		}
-//
-//		return aString;
-//	}
-
+	
 	/**
 	 * 樹状整列の根元（ルート）になるノードを探し出して応答するメソッド。
 	 * @return ルートノード、ただし、見つからないときはnullを応答する。
