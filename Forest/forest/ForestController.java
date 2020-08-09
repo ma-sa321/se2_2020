@@ -4,8 +4,9 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.lang.StringBuffer;
+import mvc.Controller;
 
-public class ForestController {
+public class ForestController extends Controller {
 
 	private Point current;
 
