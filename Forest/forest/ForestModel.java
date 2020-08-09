@@ -27,6 +27,10 @@ public class ForestModel extends Model
 	 */
 	private Forest forest;
 
+	private BufferedImage picture;
+
+	private ArrayList<ForestView> dependents;
+
 	/**
 	 * このクラスのインスタンスを生成するコンストラクタ。
 	 * @param aFile 樹状整列データファイル
@@ -88,14 +92,14 @@ public class ForestModel extends Model
 
 		// 画像の描画コンテクスト（グラフィックス）を取り出し、それを背景で塗りつぶす。
 		Graphics aGraphics = this.picture().createGraphics();
-		aGraphics.setColor(Color.WHITE);
-		aGraphics.fillRect(0, 0, aRectangle.width, aRectangle.height);
+		// aGraphics.setColor(Color.WHITE);
+		// aGraphics.fillRect(0, 0, aRectangle.width, aRectangle.height);
 
 		// 樹状整列を画像の描画コンテクスト（グラフィックス）に描き出す。
 		this.forest.draw(aGraphics);
 
 		// モデルが変化していることを依存物であるビューたちへ連絡（updateを依頼）する。
-		this.dependents.forEach((View aView) -> { aView.update(); });
+		this.dependents.forEach((ForestView aView) -> { aView.update(); });
 
 		return;
 	}

@@ -35,10 +35,17 @@ public class ForestView extends Model{
 	}
 
 	public void paintComponent(Graphics aGraphics) {
-		int width = this.getWidth();
-		int height = this.getHeight();
-		aGraphics.setColor(Color.lightGray);
+		aGraphics = model.picture().createGraphics();
+
+		// 樹状整列の境界領域を求め、その領域と高さの画像を生成する。
+		Forest forest = model.forest();
+		Rectangle aRectangle = forest.bounds();
+
+		int width = (int)aRectangle.getWidth();
+		int height = (int)aRectangle.getHeight();
+		aGraphics.setColor(Constants.BackgroundColor);
 		aGraphics.fillRect(0, 0, width, height);
+
 		ForestModel aModel = this.model;
 		if (aModel == null) {
 			 return; 
@@ -67,7 +74,7 @@ public class ForestView extends Model{
 	public void scrollTo(Point aPoint) {
 		int x = 0 - offset.x;
 		int y = 0 - offset.y;
-		return (new Point(x, y));
+		return;
 	}
 
 	/**
@@ -87,10 +94,10 @@ public class ForestView extends Model{
 		return aBuffer.toString();
 	}
 
-	public void update() {
-		this.repaint(0, 0, this.getWidth(), this.getHeight());
-		return;
-	}
+	// public void update() {
+	// 	this.repaint(0, 0, this.getWidth(), this.getHeight());
+	// 	return;
+	// }
 
 	/**
 	 *  
@@ -99,8 +106,8 @@ public class ForestView extends Model{
 		Integer x = aPoint.x;
 		Integer y = aPoint.y;
 		Point nodePoint = new Point(x, y);
-		ForestModel aModel = this.model;
-		Node aNode = aModel.whichOfNodes(nodePoint);
+		Forest forest = model.forest();
+		Node aNode = forest.whichOfNodes(nodePoint);
 		return aNode;
 	}
 }
