@@ -30,7 +30,7 @@ public class ForestView extends View{
 	 */
 
 	public ForestView(ForestModel aModel) {
-		super();
+		super(aModel);
 		model = aModel;
 		return;
 	}
