@@ -113,7 +113,7 @@ public class ForestModel extends Model
 	 * 樹状整列データファイルから樹状整列それ自身を生成するメソッド。
 	 * @param aFile 樹状整列データファイル
 	 */
-	protected void read(BufferedReader readStream)
+	protected void read(BufferedReader readStream) throws IOException
 	{
 		// 樹状整列データファイルを読み込んで、ツリー（木）たち、ノード（節）たち、ブランチ（枝）たち、を割り出す。
 		List<String> trees = new ArrayList<String>();
@@ -139,13 +139,9 @@ public class ForestModel extends Model
 					string = readStream.readLine();
 					break;
 			}
-			if(status.equals(Constants.TagOfTrees)) {
-				trees.add(string);
-			} else if(status.equals(Constants.TagOfNodes)) {
-				nodes.add(string);
-			} else if(status.equals(Constants.TagOfBranches)) {
-				branches.add(string);
-			}
+			if(status.equals(Constants.TagOfTrees)) trees.add(string);
+			else if(status.equals(Constants.TagOfNodes)) nodes.add(string);
+			else if(status.equals(Constants.TagOfBranches)) branches.add(string);
 		}
 		/**********
 		new Condition(() ->

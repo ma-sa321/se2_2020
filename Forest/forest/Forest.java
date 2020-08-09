@@ -5,7 +5,6 @@ import java.util.Collections;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Dimension;
 import java.awt.Graphics;
 
 /*
@@ -67,22 +66,23 @@ public class Forest extends Object{
 	}
 
 	/**
-	 *  
+	 * 樹上整列のセカンドレベルのメソッド 
+	 * 
 	 */
 	public void arrange(ForestModel aModel) {
 
 		Integer counter = 0;
 		for(Node aNode: this.nodes){
-			Integer height = aNode.getExtent().height + Constants.Margin.y + Constants.Interval.y;
-			aNode.setStatus(Constants.Unvisited);
+			Integer height = aNode.getExtent().y + Constants.Margin.y + Constants.Interval.y;
+			aNode.setStatus(Constants.UnVisited);
 			aNode.setLocation(new Point(0, height*counter++));
 		}
 
 		Point aPoint = new Point(0,0);
 		ArrayList<Node> rootNodes = this.rootNodes();
 		for(Node aNode: rootNodes){
-			Dimension aDimension = this.arrange(aNode, aPoint, aModel);
-			aPoint = new Point(0, aDimension.height + Constants.Interval.y);
+			Point secondPoint = this.arrange(aNode, aPoint, aModel);
+			aPoint = new Point(0, secondPoint.y + Constants.Interval.y);
 		}
 
 		this.flushBounds();
@@ -92,22 +92,23 @@ public class Forest extends Object{
 	/**
 	 *  
 	 */
-	protected Dimension arrange(Node aNode, Point aPoint, ForestModel aModel) {
+	protected Point arrange(Node aNode, Point aPoint, ForestModel aModel) {
 		aNode.setStatus(Constants.Visited);
 		aNode.setLocation(aPoint);
 		this.propagate(aModel);
 
-		Dimension extent = aNode.getExtent();
+		Point extent = aNode.getExtent();
 		ArrayList<Node> subNodes = this.subNodes(aNode);
+		//子ノードがない時
 		if (subNodes.isEmpty()) {
-			Integer width = aPoint.x + extent.width;
-			Integer height = aPoint.y + extent.height;
-			extent = new Dimension(width, height);
+			Integer width = aPoint.x + extent.x;
+			Integer height = aPoint.y + extent.y;
+			extent = new Point(width, height);
 
 			return extent;
 		}
 
-		Integer width = aPoint.x + extent.width;
+		Integer width = aPoint.x + extent.x;
 		Integer height = aPoint.y;
 		Integer x = width + Constants.Interval.x;
 		Integer y = height;
@@ -116,23 +117,23 @@ public class Forest extends Object{
 		for (Node subNode: subNodes) {
 			if (subNode.getStatus() == Constants.UnVisited) {
 				extent = this.arrange(subNode, new Point(x, y), aModel);
-				Integer h = y + subNode.getExtent().height;
-				y = extent.height > h ? extent.height : h;
-				width = extent.width> width ? extent.width : width;
-				height = extent.height > height ? extent.height : height;
+				Integer h = y + subNode.getExtent().y;
+				y = extent.y > h ? extent.y : h; //参考演算子 true:false
+				width = extent.x > width ? extent.x : width;
+				height = extent.y > height ? extent.y : height;
 				y = y + Constants.Interval.y;
 			}
 		}
 
 		y = y - Constants.Interval.y;
-		Integer h = aNode.getExtent().height;
+		Integer h = aNode.getExtent().y;
 		if (y > (aPoint.y + h)) {
 			y = top + ((y - top - h) / 2);
 			aNode.setLocation(new Point(aPoint.x, y));
 			this.propagate(aModel);
 		}
 		height = height > h ? height : h;
-		extent = new Dimension(width, height);
+		extent = new Point(width, height);
 
 		return extent;
 	}
@@ -179,8 +180,8 @@ public class Forest extends Object{
 	 *
 	 */
 	public ArrayList<Node> sortNodes(ArrayList<Node> nodeCollection) {
-		Collections.sort(nodeCollection);
-
+		// Collections.sort(nodeCollection);
+		
 		return nodeCollection;
 	}
 

@@ -23,7 +23,7 @@ public class ForestController {
 		return;
 	}
 
-	public void mouseClicked(MouseEvent a) {
+	public void mouseClicked(MouseEvent aMouseEvent) {
 		Point aPoint = aMouseEvent.getPoint();
 		aPoint.translate(view.scrollAmount().x, view.scrollAmount().y);
 		System.out.println(aPoint);
