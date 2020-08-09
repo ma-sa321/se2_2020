@@ -3,6 +3,7 @@ package forest;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.lang.StringBuffer;
 
 public class ForestController {
 
@@ -25,8 +26,8 @@ public class ForestController {
 
 	public void mouseClicked(MouseEvent aMouseEvent) {
 		Point aPoint = aMouseEvent.getPoint();
-		aPoint.translate(view.scrollAmount().x, view.scrollAmount().y);
-		System.out.println(aPoint);
+		Node aNode = view.whichOfNodes(aPoint);
+		if(aNode != null) System.out.println(aNode.getName());
 		return;
 	}
 
@@ -34,15 +35,15 @@ public class ForestController {
 	 *  
 	 */
 	public void mouseDragged(MouseEvent aMouseEvent) {
-		Cursor aCursor = Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
-		Component aComponent = (Component)aMouseEvent.getSource();
-		aComponent.setCursor(aCursor);
+		// Cursor aCursor = Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
+		// Component aComponent = (Component)aMouseEvent.getSource();
+		// aComponent.setCursor(aCursor);
 		current = aMouseEvent.getPoint();
 		int x = current.x - previous.x;
 		int y = current.y - previous.y;
 		Point point = new Point(x, y);
 		view.scrollBy(point);
-		view.repaint();
+		view.update();
 		previous = current;
 		return;
 	}
@@ -60,18 +61,18 @@ public class ForestController {
 	}
 
 	public void mousePressed(MouseEvent aMouseEvent) {
-		Cursor aCursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
-		Component aComponent = (Component)aMouseEvent.getSource();
-		aComponent.setCursor(aCursor);
+		// Cursor aCursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
+		// Component aComponent = (Component)aMouseEvent.getSource();
+		// aComponent.setCursor(aCursor);
 		current = aMouseEvent.getPoint();
 		previous = current;
 		return;
 	}
 
 	public void mouseReleased(MouseEvent aMouseEvent) {
-		Cursor aCursor = Cursor.getDefaultCursor();
-		Component aComponent = (Component)aMouseEvent.getSource();
-		aComponent.setCursor(aCursor);
+		// Cursor aCursor = Cursor.getDefaultCursor();
+		// Component aComponent = (Component)aMouseEvent.getSource();
+		// aComponent.setCursor(aCursor);
 		current = aMouseEvent.getPoint();
 		previous = current;
 		return;
@@ -88,13 +89,14 @@ public class ForestController {
 
 	public void setView(ForestView aView) {
 		view = aView;
-		view.addMouseListener(this);
-		view.addMouseMotionListener(this);
-		view.addMouseWheelListener(this);
+		// view.addMouseListener(this);
+		// view.addMouseMotionListener(this);
+		// view.addMouseWheelListener(this);
 		return;
 	}
 
 	public String toString() {
+		StringBuffer aBuffer = new StringBuffer();
 		Class<?> aClass = this.getClass();
 		aBuffer.append(aClass.getName());
 		aBuffer.append("[model=");
