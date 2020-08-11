@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.lang.StringBuffer;
 import mvc.Controller;
+import java.awt.Cursor;
+import java.awt.Component;
 
 public class ForestController extends Controller {
 

@@ -169,7 +169,11 @@ public class Forest extends Object{
 		return;
 	}
 
+	/** 
+	 * チックタックの間、スリープし、モデルが変化したと騒ぐメソッド
+	 */
 	protected void propagate(ForestModel aModel) {
+		
 		return;
 	}
 

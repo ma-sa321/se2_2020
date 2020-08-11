@@ -81,8 +81,8 @@ public class Node extends Component
 		aGraphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 		// ノード（節）の枠線を描き出す。
-		aGraphics.setColor(Color.BLACK);
-		aGraphics.drawRect(this.location.x, this.location.y, this.extent.x - 1, this.extent.y - 1);
+		aGraphics2D.setColor(Color.BLACK);
+		aGraphics2D.drawRect(this.location.x, this.location.y, this.extent.x - 1, this.extent.y - 1);
 
 		// ノード（節）の名前（ラベル）を描き出すための座標を計算する。
 		String aString = this.getName();
@@ -90,8 +90,8 @@ public class Node extends Component
 		aPoint.translate(this.margin.x, this.extent.y - this.margin.y - 2);
 
 		// ノード（節）の名前（ラベル）描き出す。
-		aGraphics.setFont(this.defaultFont);
-		aGraphics.drawString(aString, aPoint.x, aPoint.y);
+		aGraphics2D.setFont(this.defaultFont);
+		aGraphics2D.drawString(aString, aPoint.x, aPoint.y);
 
 		return;
 	}

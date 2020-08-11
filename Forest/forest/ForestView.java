@@ -47,6 +47,7 @@ public class ForestView extends View{
 			int height = (int) aRectangle.getHeight();
 			aGraphics.setColor(Constants.BackgroundColor);
 			aGraphics.fillRect(0, 0, width, height);
+			aGraphics.setFont(Constants.DefaultFont);
 
 			ForestModel aModel = this.model;
 			if (aModel == null) {
@@ -99,10 +100,11 @@ public class ForestView extends View{
 		return aBuffer.toString();
 	}
 
-	// public void update() {
-	// 	this.repaint(0, 0, this.getWidth(), this.getHeight());
-	// 	return;
-	// }
+	public void update() {
+		System.out.println("getWidth : " + this.getWidth());
+		this.repaint(0, 0, this.getWidth(), this.getHeight());
+		return;
+	}
 
 	/**
 	 *  

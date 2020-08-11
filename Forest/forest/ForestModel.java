@@ -75,6 +75,7 @@ public class ForestModel extends Model
 	{
 		// フォレストの樹状整列に引数無しですので、アニメーションは行われない。
 		this.forest.arrange();
+		System.out.println("--------");
 		this.changed();
 
 		return;
@@ -93,8 +94,8 @@ public class ForestModel extends Model
 
 			// 画像の描画コンテクスト（グラフィックス）を取り出し、それを背景で塗りつぶす。
 			Graphics aGraphics = this.picture().createGraphics();
-			// aGraphics.setColor(Color.WHITE);
-			// aGraphics.fillRect(0, 0, aRectangle.width, aRectangle.height);
+			aGraphics.setColor(Constants.BackgroundColor);
+			aGraphics.fillRect(0, 0, aRectangle.width, aRectangle.height);
 
 			// 樹状整列を画像の描画コンテクスト（グラフィックス）に描き出す。
 			this.forest.draw(aGraphics);
@@ -106,6 +107,7 @@ public class ForestModel extends Model
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		// System.out.println("aaaaaaaaa");
 		return;
 	}
 
