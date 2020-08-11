@@ -77,7 +77,7 @@ public class Node extends Component
 	public void draw(Graphics aGraphics)
 	{
 		Graphics2D aGraphics2D = (Graphics2D)aGraphics;
-		aGraphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		aGraphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		aGraphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 		// ノード（節）の枠線を描き出す。
