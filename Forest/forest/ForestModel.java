@@ -86,21 +86,26 @@ public class ForestModel extends Model
 	@Override
 	public void changed()
 	{
-		// 樹状整列の境界領域を求め、その領域と高さの画像を生成する。
-		Rectangle aRectangle = this.forest.bounds();
-		this.picture(new BufferedImage(aRectangle.width, aRectangle.height, BufferedImage.TYPE_INT_RGB));
+		try {
+			// 樹状整列の境界領域を求め、その領域と高さの画像を生成する。
+			Rectangle aRectangle = this.forest.bounds();
+			this.picture(new BufferedImage(aRectangle.width, aRectangle.height, BufferedImage.TYPE_INT_RGB));
 
-		// 画像の描画コンテクスト（グラフィックス）を取り出し、それを背景で塗りつぶす。
-		Graphics aGraphics = this.picture().createGraphics();
-		// aGraphics.setColor(Color.WHITE);
-		// aGraphics.fillRect(0, 0, aRectangle.width, aRectangle.height);
+			// 画像の描画コンテクスト（グラフィックス）を取り出し、それを背景で塗りつぶす。
+			Graphics aGraphics = this.picture().createGraphics();
+			// aGraphics.setColor(Color.WHITE);
+			// aGraphics.fillRect(0, 0, aRectangle.width, aRectangle.height);
 
-		// 樹状整列を画像の描画コンテクスト（グラフィックス）に描き出す。
-		this.forest.draw(aGraphics);
+			// 樹状整列を画像の描画コンテクスト（グラフィックス）に描き出す。
+			this.forest.draw(aGraphics);
 
-		// モデルが変化していることを依存物であるビューたちへ連絡（updateを依頼）する。
-		this.dependents.forEach((ForestView aView) -> { aView.update(); });
-
+			// モデルが変化していることを依存物であるビューたちへ連絡（updateを依頼）する。
+			this.dependents.forEach((ForestView aView) -> {
+				aView.update();
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return;
 	}
 

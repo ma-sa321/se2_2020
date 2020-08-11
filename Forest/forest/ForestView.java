@@ -36,26 +36,30 @@ public class ForestView extends View{
 	}
 
 	public void paintComponent(Graphics aGraphics) {
-		aGraphics = model.picture().createGraphics();
+		try {
+			aGraphics = model.picture().createGraphics();
 
-		// 樹状整列の境界領域を求め、その領域と高さの画像を生成する。
-		Forest forest = model.forest();
-		Rectangle aRectangle = forest.bounds();
+			// 樹状整列の境界領域を求め、その領域と高さの画像を生成する。
+			Forest forest = model.forest();
+			Rectangle aRectangle = forest.bounds();
 
-		int width = (int)aRectangle.getWidth();
-		int height = (int)aRectangle.getHeight();
-		aGraphics.setColor(Constants.BackgroundColor);
-		aGraphics.fillRect(0, 0, width, height);
+			int width = (int) aRectangle.getWidth();
+			int height = (int) aRectangle.getHeight();
+			aGraphics.setColor(Constants.BackgroundColor);
+			aGraphics.fillRect(0, 0, width, height);
 
-		ForestModel aModel = this.model;
-		if (aModel == null) {
-			 return; 
+			ForestModel aModel = this.model;
+			if (aModel == null) {
+				return;
+			}
+			BufferedImage picture = model.picture();
+			if (picture == null) {
+				return;
+			}
+			aGraphics.drawImage(picture, offset.x, offset.y, null);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		BufferedImage picture = model.picture();
-		if (picture == null) {
-			 return;
-		}
-		aGraphics.drawImage(picture, offset.x, offset.y, null);
 		return;
 	}
 

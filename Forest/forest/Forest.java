@@ -7,7 +7,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Graphics;
 
-/*
+/**
  * Forestクラス
  *
  */
@@ -56,18 +56,22 @@ public class Forest extends Object{
 	}
 
 	/**
-	 * 樹上整列のトップのメソッド
+	 * 樹状整列のトップのメソッド
 	 *
 	 */
 	public void arrange() {
-		this.arrange(null);
+		try {
+			this.arrange(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return;
 	}
 
 	/**
-	 * 樹上整列のセカンドレベルのメソッド 
-	 * 
+	 * 樹状整列のセカンドレベルのメソッド
+	 * @param aModel
 	 */
 	public void arrange(ForestModel aModel) {
 
@@ -90,7 +94,7 @@ public class Forest extends Object{
 	}
 
 	/**
-	 *  
+	 *
 	 */
 	protected Point arrange(Node aNode, Point aPoint, ForestModel aModel) {
 		aNode.setStatus(Constants.Visited);
@@ -180,8 +184,8 @@ public class Forest extends Object{
 	 *
 	 */
 	public ArrayList<Node> sortNodes(ArrayList<Node> nodeCollection) {
-		// Collections.sort(nodeCollection);
-		
+//		Collections.sort(nodeCollection);
+
 		return nodeCollection;
 	}
 
