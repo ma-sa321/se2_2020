@@ -44,9 +44,9 @@ public class ForestModel extends Model
 
 		try
 		{
-			BufferedReader readStream = new BufferedReader(new InputStreamReader(new FileInputStream(aFile)));
-			this.read(readStream);
-			readStream.close();
+//			BufferedReader readStream = new BufferedReader(new InputStreamReader(new FileInputStream(aFile)));
+			this.read(aFile);
+//			readStream.close();
 
 		}
 		catch (FileNotFoundException anException) { System.err.println(anException); }
@@ -117,8 +117,11 @@ public class ForestModel extends Model
 	 * 樹状整列データファイルから樹状整列それ自身を生成するメソッド。
 	 * @param aFile 樹状整列データファイル
 	 */
-	protected void read(BufferedReader readStream) throws IOException
+	protected void read(File aFile) throws IOException
+//	protected void read(BufferedReader readStream) throws IOException
 	{
+		BufferedReader readStream = new BufferedReader(new FileReader(aFile));
+
 		// 樹状整列データファイルを読み込んで、ツリー（木）たち、ノード（節）たち、ブランチ（枝）たち、を割り出す。
 		List<String> trees = new ArrayList<String>();
 		List<String> nodes = new ArrayList<String>();
@@ -132,17 +135,29 @@ public class ForestModel extends Model
 			switch(string) {
 				case Constants.TagOfTrees:
 					status = Constants.TagOfTrees;
-					string = readStream.readLine();
 					break;
 				case Constants.TagOfNodes:
 					status = Constants.TagOfNodes;
-					string = readStream.readLine();
 					break;
 				case Constants.TagOfBranches:
 					status = Constants.TagOfBranches;
-					string = readStream.readLine();
 					break;
 			}
+//			if(status.equals(Constants.TagOfTrees))
+//			{
+//				System.out.println(string);
+//				trees.add(string);
+//			}
+//			else if(status.equals(Constants.TagOfNodes))
+//			{
+//				System.out.println(string);
+//				nodes.add(string);
+//			}
+//			else if(status.equals(Constants.TagOfBranches))
+//			{
+//				System.out.println(string);
+//				branches.add(string);
+//			}
 			if(status.equals(Constants.TagOfTrees)) trees.add(string);
 			else if(status.equals(Constants.TagOfNodes)) nodes.add(string);
 			else if(status.equals(Constants.TagOfBranches)) branches.add(string);
