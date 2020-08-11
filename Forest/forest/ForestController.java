@@ -20,16 +20,17 @@ public class ForestController extends Controller {
 
 	public ForestController() {
 		super();
-		model = null;
-		view = null;
-		previous = null;
-		current = null;
+		this.model = null;
+		this.view = null;
+		this.previous = null;
+		this.current = null;
 		return;
 	}
-
+	@Override
 	public void mouseClicked(MouseEvent aMouseEvent) {
 		Point aPoint = aMouseEvent.getPoint();
-		Node aNode = view.whichOfNodes(aPoint);
+		Node aNode = this.view.whichOfNodes(aPoint);
+
 		if(aNode != null) System.out.println(aNode.getName());
 		return;
 	}
@@ -41,13 +42,13 @@ public class ForestController extends Controller {
 		// Cursor aCursor = Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
 		// Component aComponent = (Component)aMouseEvent.getSource();
 		// aComponent.setCursor(aCursor);
-		current = aMouseEvent.getPoint();
-		int x = current.x - previous.x;
-		int y = current.y - previous.y;
+		this.current = aMouseEvent.getPoint();
+		int x = this.current.x - this.previous.x;
+		int y = this.current.y - this.previous.y;
 		Point point = new Point(x, y);
-		view.scrollBy(point);
-		view.update();
-		previous = current;
+		this.view.scrollBy(point);
+		this.view.update();
+		this.previous = this.current;
 		return;
 	}
 
@@ -67,8 +68,8 @@ public class ForestController extends Controller {
 		// Cursor aCursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
 		// Component aComponent = (Component)aMouseEvent.getSource();
 		// aComponent.setCursor(aCursor);
-		current = aMouseEvent.getPoint();
-		previous = current;
+		this.current = aMouseEvent.getPoint();
+		this.previous = this.current;
 		return;
 	}
 
@@ -76,8 +77,8 @@ public class ForestController extends Controller {
 		// Cursor aCursor = Cursor.getDefaultCursor();
 		// Component aComponent = (Component)aMouseEvent.getSource();
 		// aComponent.setCursor(aCursor);
-		current = aMouseEvent.getPoint();
-		previous = current;
+		this.current = aMouseEvent.getPoint();
+		this.previous = this.current;
 		return;
 	}
 
@@ -86,15 +87,15 @@ public class ForestController extends Controller {
 	}
 
 	public void setModel(ForestModel aModel) {
-		model = aModel;
+		this.model = aModel;
 		return;
 	}
 
 	public void setView(ForestView aView) {
-		view = aView;
-		// view.addMouseListener(this);
-		// view.addMouseMotionListener(this);
-		// view.addMouseWheelListener(this);
+		this.view = aView;
+//		this.view.addMouseListener(this);
+//		this.view.addMouseMotionListener(this);
+//		this.view.addMouseWheelListener(this);
 		return;
 	}
 
@@ -103,9 +104,9 @@ public class ForestController extends Controller {
 		Class<?> aClass = this.getClass();
 		aBuffer.append(aClass.getName());
 		aBuffer.append("[model=");
-		aBuffer.append(model);
+		aBuffer.append(this.model);
 		aBuffer.append(",view=");
-		aBuffer.append(view);
+		aBuffer.append(this.view);
 		aBuffer.append("]");
 		return aBuffer.toString();
 	}

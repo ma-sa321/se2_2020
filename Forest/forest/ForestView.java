@@ -31,13 +31,15 @@ public class ForestView extends View{
 
 	public ForestView(ForestModel aModel) {
 		super(aModel);
-		model = aModel;
+		this.model = aModel;
+		this.controller = new ForestController();
+		this.offset = new Point(0,0);
 		return;
 	}
 
 	public void paintComponent(Graphics aGraphics) {
 		try {
-			aGraphics = model.picture().createGraphics();
+//			aGraphics = model.picture().createGraphics();
 
 			// 樹状整列の境界領域を求め、その領域と高さの画像を生成する。
 			Forest forest = model.forest();
@@ -53,11 +55,11 @@ public class ForestView extends View{
 			if (aModel == null) {
 				return;
 			}
-			BufferedImage picture = model.picture();
+			BufferedImage picture = this.model.picture();
 			if (picture == null) {
 				return;
 			}
-			aGraphics.drawImage(picture, offset.x, offset.y, null);
+			aGraphics.drawImage(picture, this.offset.x, this.offset.y, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,8 +70,8 @@ public class ForestView extends View{
 	 *  
 	 */
 	public void scrollBy(Point aPoint) {
-		int x = offset.x + aPoint.x;
-		int y = offset.y + aPoint.y;
+		int x = this.offset.x + aPoint.x;
+		int y = this.offset.y + aPoint.y;
 		this.scrollTo(new Point(x, y));
 		return;
 	}
@@ -78,8 +80,8 @@ public class ForestView extends View{
 	 *  
 	 */
 	public void scrollTo(Point aPoint) {
-		int x = 0 - offset.x;
-		int y = 0 - offset.y;
+		int x = 0 - this.offset.x;
+		int y = 0 - this.offset.y;
 		return;
 	}
 
@@ -91,11 +93,11 @@ public class ForestView extends View{
 		Class<?> aClass = this.getClass();
 		aBuffer.append(aClass.getName());
 		aBuffer.append("[model=");
-		aBuffer.append(model);
+		aBuffer.append(this.model);
 		aBuffer.append(",offset=");
-		aBuffer.append(offset);
+		aBuffer.append(this.offset);
 		aBuffer.append(",controller=");
-		aBuffer.append(controller);
+		aBuffer.append(this.controller);
 		aBuffer.append("]");
 		return aBuffer.toString();
 	}
