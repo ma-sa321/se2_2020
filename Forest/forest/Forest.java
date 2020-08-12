@@ -94,7 +94,11 @@ public class Forest extends Object{
 	}
 
 	/**
-	 *
+	 * 樹状整列の再帰レベルのメソッド
+	 * @param aNode
+	 * @param aPoint
+	 * @param aModel
+	 * @return
 	 */
 	protected Point arrange(Node aNode, Point aPoint, ForestModel aModel) {
 		aNode.setStatus(Constants.Visited);
@@ -173,12 +177,33 @@ public class Forest extends Object{
 	 * チックタックの間、スリープし、モデルが変化したと騒ぐメソッド
 	 */
 	protected void propagate(ForestModel aModel) {
-		
+		if(!(aModel == null)) {
+			try{
+				Thread.sleep(Constants.SleepTick);
+				aModel.changed();
+			} catch(Exception e) {
+	          e.printStackTrace();
+			}
+			this.flushBounds();
+			aModel.changed();
+		}
 		return;
 	}
 
+	/**
+	 * フォレストの根元（ルート）となるノード群を応答するメソッドです。
+	 * @return
+	 */
 	public ArrayList<Node> rootNodes() {
-		return null;
+		ArrayList<Node> endList = new ArrayList<>();
+		this.branches.forEach(aBranch -> endList.add(aBranch.end()));
+
+		ArrayList<Node> roots = new ArrayList<>();
+		this.nodes.forEach((Node aNode)->
+		{
+			if(!endList.contains(aNode)) roots.add(aNode);
+		});
+		return roots;
 	}
 
 	/**

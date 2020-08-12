@@ -115,7 +115,7 @@ public class ForestView extends View{
 		Integer x = aPoint.x;
 		Integer y = aPoint.y;
 		Point nodePoint = new Point(x, y);
-		Forest forest = model.forest();
+		Forest forest = this.model.forest();
 		Node aNode = forest.whichOfNodes(nodePoint);
 		return aNode;
 	}

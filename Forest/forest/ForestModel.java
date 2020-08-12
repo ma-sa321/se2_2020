@@ -13,9 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import mvc.Model;
-import mvc.View;
 
 /**
  * 樹状整列におけるMVCのモデル（M）を担うクラス。
@@ -41,6 +39,8 @@ public class ForestModel extends Model
 
 		// フォレストのインスタンスを生成して保持し、樹状整列データファイルを読み込み、樹状整列させる。
 		this.forest = new Forest();
+		this.dependents = new ArrayList<ForestView>();
+		this.picture = null;
 
 		try
 		{
@@ -75,7 +75,7 @@ public class ForestModel extends Model
 	{
 		// フォレストの樹状整列に引数無しですので、アニメーションは行われない。
 		this.forest.arrange();
-		System.out.println("--------");
+//		System.out.println("--------");
 		this.changed();
 
 		return;
