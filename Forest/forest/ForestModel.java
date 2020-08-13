@@ -75,7 +75,6 @@ public class ForestModel extends Model
 	{
 		// フォレストの樹状整列に引数無しですので、アニメーションは行われない。
 		this.forest.arrange();
-//		System.out.println("--------");
 		this.changed();
 
 		return;
@@ -107,7 +106,6 @@ public class ForestModel extends Model
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// System.out.println("aaaaaaaaa");
 		return;
 	}
 
@@ -125,7 +123,6 @@ public class ForestModel extends Model
 	 * @param aFile 樹状整列データファイル
 	 */
 	protected void read(File aFile) throws IOException
-//	protected void read(BufferedReader readStream) throws IOException
 	{
 		BufferedReader readStream = new BufferedReader(new FileReader(aFile));
 
@@ -150,76 +147,10 @@ public class ForestModel extends Model
 					status = Constants.TagOfBranches;
 					break;
 			}
-//			if(status.equals(Constants.TagOfTrees))
-//			{
-//				System.out.println(string);
-//				trees.add(string);
-//			}
-//			else if(status.equals(Constants.TagOfNodes))
-//			{
-//				System.out.println(string);
-//				nodes.add(string);
-//			}
-//			else if(status.equals(Constants.TagOfBranches))
-//			{
-//				System.out.println(string);
-//				branches.add(string);
-//			}
 			if(status.equals(Constants.TagOfTrees)) trees.add(string);
 			else if(status.equals(Constants.TagOfNodes)) nodes.add(string);
 			else if(status.equals(Constants.TagOfBranches)) branches.add(string);
 		}
-		/**********
-		new Condition(() ->
-		{
-			string.set(this.readLine(readStream));
-			return (string.get()) != null;
-		}).whileTrue(() ->
-		{
-			new Condition(() ->
-				string.get().equals(Constants.TagOfTrees)
-			).ifTrue(() ->
-			{
-				string.set(this.readLine(readStream));
-				new Condition(() ->
-					string.get() != null && !(string.get().equals(Constants.TagOfNodes))
-				).whileTrue(() ->
-				{
-					trees.add(string.get());
-					string.set(this.readLine(readStream));
-				});
-			});
-
-			new Condition(() ->
-				string.get() != null && string.get().equals(Constants.TagOfNodes)
-			).whileTrue(() ->
-			{
-				string.set(this.readLine(readStream));
-				new Condition(() ->
-					string.get() != null && !(string.get().equals(Constants.TagOfNodes))
-				).whileTrue(() ->
-				{
-					nodes.add(string.get());
-					string.set(this.readLine(readStream));
-				});
-			});
-
-			new Condition(() ->
-				string.get() != null && string.get().equals(Constants.TagOfBranches)
-			).whileTrue(() ->
-			{
-				string.set(this.readLine(readStream));
-				new Condition(() ->
-					string.get() != null
-				).whileTrue(() ->
-				{
-					branches.add(string.get());
-					string.set(this.readLine(readStream));
-				});
-			});
-		});
-
-		 **********/
 
 		// ノードたちを生成して登録する。
 		Node[] nodeArray = new Node[nodes.size()-1];
@@ -236,20 +167,6 @@ public class ForestModel extends Model
 			}
 		}
 
-		/**********
-		nodes.forEach((String aString) ->
-		{
-			String[] stringArray = aString.split(", ");
-			new Condition(() -> stringArray.length == 2).ifTrue(() ->
-			{
-				Integer anIndex = Integer.parseInt(stringArray[0]) - 1;
-				Node aNode = new Node(stringArray[1]);
-				nodeArray[anIndex] = aNode;
-				this.forest.addNode(aNode);
-			});
-		});
-		**********/
-
 		// ブランチたちを生成して登録する。
 		for(String branch : branches)
 		{
@@ -262,20 +179,6 @@ public class ForestModel extends Model
 				this.forest.addBranch(aBranch);
 			}
 		}
-		/**********
-		branches.forEach((String aString) ->
-		{
-			String[] stringArray = aString.split(", ");
-			new Condition(() -> stringArray.length == 2).ifTrue(() -> 
-			{
-				Node fromNode = nodeArray[Integer.parseInt(stringArray[0]) - 1];
-				Node toNode = nodeArray[Integer.parseInt(stringArray[1]) - 1];
-
-				Branch aBranch = new Branch(fromNode, toNode);
-				this.forest.addBranch(aBranch);
-			});
-		});
-		**********/
 		return;
 	}
 	/**
