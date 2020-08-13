@@ -2,16 +2,9 @@ package forest;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.lang.StringBuffer;
 import mvc.Controller;
-import java.awt.Cursor;
-import java.awt.Component;
-import mvc.View;
 
 public class ForestController extends Controller {
-
-	private ForestView view;
 
 	public ForestController() {
 		super();
@@ -20,7 +13,8 @@ public class ForestController extends Controller {
 	@Override
 	public void mouseClicked(MouseEvent aMouseEvent) {
 		Point aPoint = aMouseEvent.getPoint();
-		Node aNode = this.view.whichOfNodes(aPoint);
+		ForestView aView = (ForestView)super.view;
+		Node aNode = aView.whichOfNodes(aPoint);
 
 		if(aNode != null) System.out.println(aNode.getName());
 		return;
@@ -29,7 +23,7 @@ public class ForestController extends Controller {
 	/**
 	 *  
 	 */
-	public void mouseDragged(MouseEvent aMouseEvent) {
+//	public void mouseDragged(MouseEvent aMouseEvent) {
 		// Cursor aCursor = Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
 		// Component aComponent = (Component)aMouseEvent.getSource();
 		// aComponent.setCursor(aCursor);
@@ -40,55 +34,55 @@ public class ForestController extends Controller {
 //		this.view.scrollBy(point);
 //		this.view.update();
 //		this.previous = this.current;
-		return;
-	}
+//		return;
+//	}
 
-	public void mouseEntered(MouseEvent aMouseEvent) {
-		return;
-	}
+//	public void mouseEntered(MouseEvent aMouseEvent) {
+//		return;
+//	}
 
-	public void mouseExited(MouseEvent aMouseEvent) {
-		return;
-	}
+//	public void mouseExited(MouseEvent aMouseEvent) {
+//		return;
+//	}
 
-	public void mouseMoved(MouseEvent aMouseEvent) {
-		return;
-	}
+//	public void mouseMoved(MouseEvent aMouseEvent) {
+//		return;
+//	}
 
-	public void mousePressed(MouseEvent aMouseEvent) {
+//	public void mousePressed(MouseEvent aMouseEvent) {
 		// Cursor aCursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
 		// Component aComponent = (Component)aMouseEvent.getSource();
 		// aComponent.setCursor(aCursor);
 //		this.current = aMouseEvent.getPoint();
 //		this.previous = this.current;
-		return;
-	}
+//		return;
+//	}
 
-	public void mouseReleased(MouseEvent aMouseEvent) {
+//	public void mouseReleased(MouseEvent aMouseEvent) {
 		// Cursor aCursor = Cursor.getDefaultCursor();
 		// Component aComponent = (Component)aMouseEvent.getSource();
 		// aComponent.setCursor(aCursor);
 //		this.current = aMouseEvent.getPoint();
 //		this.previous = this.current;
-		return;
-	}
+//		return;
+//	}
 
-	public void mouseWheelMoved(MouseWheelEvent aMouseWheelEvent) {
-		return;
-	}
+//	public void mouseWheelMoved(MouseWheelEvent aMouseWheelEvent) {
+//		return;
+//	}
 
-	public void setModel(ForestModel aModel) {
+//	public void setModel(ForestModel aModel) {
 //		this.model = aModel;
-		return;
-	}
+//		return;
+//	}
 
-	public void setView(ForestView aView) {
+//	public void setView(ForestView aView) {
 //		this.view = aView;
 //		this.view.addMouseListener(this);
 //		this.view.addMouseMotionListener(this);
 //		this.view.addMouseWheelListener(this);
-		return;
-	}
+//		return;
+//	}
 
 //	public String toString() {
 //		StringBuffer aBuffer = new StringBuffer();
