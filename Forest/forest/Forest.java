@@ -147,7 +147,7 @@ public class Forest extends Object{
 	}
 
 	/**
-	 *  
+	 *
 	 */
 	public Rectangle bounds() {
 		if (this.bounds == null) this.bounds = new Rectangle();
@@ -157,7 +157,7 @@ public class Forest extends Object{
 	}
 
 	/**
-	 *  
+	 *
 	 */
 	public void draw(Graphics aGraphics) {
 		this.branches.forEach( aBranch -> aBranch.draw(aGraphics) );
@@ -165,7 +165,7 @@ public class Forest extends Object{
 	}
 
 	/**
-	 *  
+	 *
 	 */
 	public void flushBounds() {
 		this.bounds = null;
@@ -173,7 +173,7 @@ public class Forest extends Object{
 		return;
 	}
 
-	/** 
+	/**
 	 * チックタックの間、スリープし、モデルが変化したと騒ぐメソッド
 	 */
 	protected void propagate(ForestModel aModel) {
@@ -182,7 +182,7 @@ public class Forest extends Object{
 				Thread.sleep(Constants.SleepTick);
 				aModel.changed();
 			} catch(Exception e) {
-	          e.printStackTrace();
+				e.printStackTrace();
 			}
 			this.flushBounds();
 			aModel.changed();
@@ -203,7 +203,7 @@ public class Forest extends Object{
 		{
 			if(!endList.contains(aNode)) roots.add(aNode);
 		});
-		return roots;
+		return sortNodes(roots);
 	}
 
 	/**
@@ -213,9 +213,14 @@ public class Forest extends Object{
 	 *
 	 */
 	public ArrayList<Node> sortNodes(ArrayList<Node> nodeCollection) {
-//		Collections.sort(nodeCollection);
-
-		return nodeCollection;
+		ArrayList<String> sortNameArray = new ArrayList<>();
+		ArrayList<Node> sortResultArray = new ArrayList<>();
+		for(Node aNode : nodeCollection) { sortNameArray.add(aNode.getName()); }
+		Collections.sort(sortNameArray);
+		for(String sortName : sortNameArray) {
+			for(Node aNode : nodeCollection) { if(sortName.equals(aNode.getName())) sortResultArray.add(aNode); }
+		}
+		return sortResultArray;
 	}
 
 	/**
@@ -231,7 +236,7 @@ public class Forest extends Object{
 				nodeList.add(aBranch.end());
 		}
 
-		return nodeList;
+		return sortNodes(nodeList);
 	}
 
 	/**
@@ -247,7 +252,7 @@ public class Forest extends Object{
 				nodeList.add(aBranch.start());
 		}
 
-		return nodeList;
+		return sortNodes(nodeList);
 	}
 
 	/**
@@ -287,5 +292,3 @@ public class Forest extends Object{
 	}
 
 }
-
-
