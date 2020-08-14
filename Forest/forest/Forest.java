@@ -166,8 +166,8 @@ public class Forest extends Object {
 	protected void propagate(ForestModel aModel) {
 		if(!(aModel == null)) {
 			try{
-				Thread.sleep(Constants.SleepTick);
 				aModel.changed();
+				Thread.sleep(Constants.SleepTick);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -190,7 +190,7 @@ public class Forest extends Object {
 		{
 			if(!endList.contains(aNode)) roots.add(aNode);
 		});
-		return sortNodes(roots);
+		return roots;
 	}
 
 	/**
