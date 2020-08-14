@@ -11,7 +11,7 @@ import java.awt.Graphics;
  * Forestクラス
  *
  */
-public class Forest extends Object{
+public class Forest extends Object {
 
 	private ArrayList<Branch> branches;
 
@@ -27,7 +27,6 @@ public class Forest extends Object{
 		this.nodes = new ArrayList<Node>();
 		this.branches = new ArrayList<Branch>();
 		this.bounds = null;
-
 		return;
 	}
 
@@ -39,7 +38,6 @@ public class Forest extends Object{
 	public void addBranch(Branch aBranch) {
 		this.branches.add(aBranch);
 		this.flushBounds();
-
 		return;
 	}
 
@@ -51,7 +49,6 @@ public class Forest extends Object{
 	public void addNode(Node aNode) {
 		this.nodes.add(aNode);
 		this.flushBounds();
-
 		return;
 	}
 
@@ -60,12 +57,8 @@ public class Forest extends Object{
 	 *
 	 */
 	public void arrange() {
-		try {
-			this.arrange(null);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		try { this.arrange(null); }
+		catch (Exception e) { e.printStackTrace(); }
 		return;
 	}
 
@@ -74,9 +67,8 @@ public class Forest extends Object{
 	 * @param aModel
 	 */
 	public void arrange(ForestModel aModel) {
-
 		Integer counter = 0;
-		for(Node aNode: this.nodes){
+		for(Node aNode: this.nodes) {
 			Integer height = aNode.getExtent().y + Constants.Margin.y + Constants.Interval.y;
 			aNode.setStatus(Constants.UnVisited);
 			aNode.setLocation(new Point(0, height*counter++));
@@ -84,11 +76,10 @@ public class Forest extends Object{
 
 		Point aPoint = new Point(0,0);
 		ArrayList<Node> rootNodes = this.rootNodes();
-		for(Node aNode: rootNodes){
+		for(Node aNode: rootNodes) {
 			Point secondPoint = this.arrange(aNode, aPoint, aModel);
 			aPoint = new Point(0, secondPoint.y + Constants.Interval.y);
 		}
-
 		this.flushBounds();
 		return;
 	}
@@ -112,7 +103,6 @@ public class Forest extends Object{
 			Integer width = aPoint.x + extent.x;
 			Integer height = aPoint.y + extent.y;
 			extent = new Point(width, height);
-
 			return extent;
 		}
 
@@ -142,7 +132,6 @@ public class Forest extends Object{
 		}
 		height = height > h ? height : h;
 		extent = new Point(width, height);
-
 		return extent;
 	}
 
@@ -152,7 +141,6 @@ public class Forest extends Object{
 	public Rectangle bounds() {
 		if (this.bounds == null) this.bounds = new Rectangle();
 		this.nodes.forEach(aNode -> this.bounds.add(aNode.getBounds()));
-
 		return this.bounds;
 	}
 
@@ -169,7 +157,6 @@ public class Forest extends Object{
 	 */
 	public void flushBounds() {
 		this.bounds = null;
-
 		return;
 	}
 
@@ -209,8 +196,7 @@ public class Forest extends Object{
 	/**
 	 * ノードをノード名でソートするメソッド
 	 * @param nodeCollection ノード
-	 * return ソートされたノード
-	 *
+	 * @return ソートされたノード
 	 */
 	public ArrayList<Node> sortNodes(ArrayList<Node> nodeCollection) {
 		ArrayList<String> sortNameArray = new ArrayList<>();
@@ -226,15 +212,11 @@ public class Forest extends Object{
 	/**
 	 * 子ノードを返すメソッド
 	 * @param aNode ノード
-	 * return nodeList 子ノード
-	 *
+	 * @return 子ノード
 	 */
 	public ArrayList<Node> subNodes(Node aNode) {
 		ArrayList<Node> nodeList = new ArrayList<>();
-		for(Branch aBranch : this.branches){
-			if(aBranch.start().equals(aNode))
-				nodeList.add(aBranch.end());
-		}
+		for(Branch aBranch : this.branches) { if(aBranch.start().equals(aNode)) nodeList.add(aBranch.end()); }
 
 		return sortNodes(nodeList);
 	}
@@ -242,28 +224,22 @@ public class Forest extends Object{
 	/**
 	 * 親ノードを返すメソッド
 	 * @param aNode ノード
-	 * return nodeList 親ノード
+	 * @return 親ノード
 	 *
 	 */
 	public ArrayList<Node> superNode(Node aNode) {
 		ArrayList<Node> nodeList = new ArrayList<>();
-		for(Branch aBranch : this.branches){
-			if(aBranch.end().equals(aNode))
-				nodeList.add(aBranch.start());
-		}
-
+		for(Branch aBranch : this.branches){ if(aBranch.end().equals(aNode)) nodeList.add(aBranch.start());	}
 		return sortNodes(nodeList);
 	}
 
 	/**
 	 * クラスを文字列に変換するメソッド
-	 * return aBuffer.toString()
-	 *
+	 * @return
 	 */
 	public String toString() {
 		StringBuffer aBuffer = new StringBuffer();
 		Class<?> aClass = this.getClass();
-
 		aBuffer.append(aClass.getName());
 		aBuffer.append("[bounds=");
 		aBuffer.append(this.bounds);
@@ -272,22 +248,18 @@ public class Forest extends Object{
 		aBuffer.append(", branches=");
 		aBuffer.append(this.branches);
 		aBuffer.append("]");
-
 		return aBuffer.toString();
 	}
 
 	/**
 	 * 座標にノードが存在するかどうかを調べるメソッド
-	 * return aNode もしくはnull
-	 *
+	 * @return aNode もしくはnull
 	 */
 	public Node whichOfNodes(Point aPoint) {
-		for(Node aNode : this.nodes){
+		for(Node aNode : this.nodes) {
 			Rectangle aRectangle = aNode.getBounds();
-			if(aRectangle.contains(aPoint))
-				return aNode;
+			if(aRectangle.contains(aPoint)) return aNode;
 		}
-
 		return null;
 	}
 

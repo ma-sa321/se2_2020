@@ -12,8 +12,7 @@ import javax.swing.JFrame;
  * $ make forest  # 森を整列描画<br>
  * $ make semilattice  # 亜格子状の森を整列描画<br>
  */
-public class Example extends Object
-{
+public class Example extends Object {
 	/**
 	 * 第1引数で樹状整列データファイルを受け取って樹状整列を実行します。<br>
 	 * $ java -Dfile.encoding=UTF-8 -Xmx512m -Xss1024k -jar forest.jar resource/data/tree.txt<br>
@@ -21,19 +20,16 @@ public class Example extends Object
 	 * $ java -Dfile.encoding=UTF-8 -Xmx512m -Xss1024k -jar forest.jar resource/data/semilattice.txt<br>
 	 * @param arguments 樹状整列データファイルを第1引数とする引数文字列群
 	 */
-	public static void main(String[] arguments)
-	{
+	public static void main(String[] arguments) {
 		// 引数が無い（樹状整列データファイルの在り処がわからない）をチェックする。
-		if (arguments.length < 1)
-		{
+		if (arguments.length < 1) {
 			System.err.println("There are too few arguments.");
 			System.exit(1);
 		}
 
 		// 第1引数で指定された樹状整列データファイルの存在をチェックする。
 		File aFile = new File(arguments[0]);
-		if (!(aFile.exists()))
-		{
+		if (!(aFile.exists())) {
 			System.err.println("'" + aFile + "' does not exist.");
 			System.exit(1);
 		}
