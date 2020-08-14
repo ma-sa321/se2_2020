@@ -158,8 +158,8 @@ public class ForestModel extends Model {
 		return (roots.size() > 0) ? (roots.get(0)) : (null);
 	}
 	/**
-	 * 
-	 * @return
+	 * 樹状整列データファイルストリームから一行分を読み出して応答するメソッド
+	 * @return フォレストの根元（ルート）となるノード群
 	 */
 	public ArrayList<Node> roots() { return this.forest().rootNodes();	}
 }
