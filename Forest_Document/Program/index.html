@@ -248,9 +248,296 @@ th {
 </div>
 <hr>
 <h2>ソフトウェア工学II「樹状整列」プログラム</h2>
+<ul>
+  <li><a href="#Example">Example(メインクラス)</a></li>
+  <li><a href="#ForestModel">ForestModel</a></li>
+  <li><a href="#ForestView">ForestView</a></li>
+  <li><a href="#ForestController">ForestController</a></li>
+  <li><a href="#Branch">Branch</a></li>
+  <li><a href="#Node">Node</a></li>
+  <li><a href="#Forest">Forest</a></li>
+</ul>
+<ul>
+  <li><a href="#forest.mf">forest.mf(マニフェストファイル)</a></li>
+  <li><a href="#Makefile">Makefile(メイクファイル)</a></li>
+  <li><a href="#build.xml">build.xml(ビルドファイル)</a></li>
+</ul>
 <div class="belt">
-<h3><a name="KanseiSaseteKudasai">完成させてください</a></h3>
+  <h3><a name="Example" href="../TestSpecification/index.html#Example">Example (メインクラス)</a></h3>
 </div>
+<pre>
+package forest;
+
+import java.awt.Dimension;
+import java.awt.Point;
+import java.io.File;
+import javax.swing.JFrame;
+
+/**
+ * 樹状整列の例題クラス：使い方の典型を示すのが目的のプログラムです。<br>
+ * Makefileを用いた実行方法は以下の通りです。<br>
+ * $ make tree  # 木を整列描画<br>
+ * $ make forest  # 森を整列描画<br>
+ * $ make semilattice  # 亜格子状の森を整列描画<br>
+ */
+public class Example extends Object {
+	/**
+	 * 第1引数で樹状整列データファイルを受け取って樹状整列を実行します。<br>
+	 * $ java -Dfile.encoding=UTF-8 -Xmx512m -Xss1024k -jar forest.jar resource/data/tree.txt<br>
+	 * $ java -Dfile.encoding=UTF-8 -Xmx512m -Xss1024k -jar forest.jar resource/data/forest.txt<br>
+	 * $ java -Dfile.encoding=UTF-8 -Xmx512m -Xss1024k -jar forest.jar resource/data/semilattice.txt<br>
+	 * @param arguments 樹状整列データファイルを第1引数とする引数文字列群
+	 */
+	public static void main(String[] arguments) {
+		// 引数が無い（樹状整列データファイルの在り処がわからない）をチェックする。
+		if (arguments.length < 1) {
+			System.err.println("There are too few arguments.");
+			System.exit(1);
+		}
+
+		// 第1引数で指定された樹状整列データファイルの存在をチェックする。
+		File aFile = new File(arguments[0]);
+		if (!(aFile.exists())) {
+			System.err.println("'" + aFile + "' does not exist.");
+			System.exit(1);
+		}
+
+		 // MVCを作成する。
+		ForestModel aModel = new ForestModel(aFile);
+		ForestView aView = new ForestView(aModel);
+
+		// ウィンドウを生成して開く。
+		JFrame aWindow = new JFrame(aFile.getName());
+		aWindow.getContentPane().add(aView);
+		aWindow.setMinimumSize(new Dimension(400, 300));
+		aWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		aWindow.setSize(800, 600);
+		aWindow.setLocationRelativeTo(null);
+		aWindow.setVisible(true);
+
+		// 樹状整列のアニメーションを行う。
+		aModel.animate();
+
+		return;
+	}
+}
+</pre>
+
+
+<div class="belt">
+  <h3><a name="ForestModel" href="../TestSpecification/index.html#ForestModel">ForestModel</a></h3>
+</div>
+
+
+<div class="belt">
+  <h3><a name="ForestView" href="../TestSpecification/index.html#ForestView">ForestView</a></h3>
+</div>
+
+
+<div class="belt">
+  <h3><a name="ForestController" href="../TestSpecification/index.html#ForestController">ForestController</a></h3>
+</div>
+
+
+<div class="belt">
+  <h3><a name="Branch" href="../TestSpecification/index.html#Branch">Branch</a></h3>
+</div>
+
+
+<div class="belt">
+  <h3><a name="Node" href="../TestSpecification/index.html#Node">Node</a></h3>
+</div>
+
+
+<div class="belt">
+  <h3><a name="Forest" href="../TestSpecification/index.html#Forest">Forest</a></h3>
+</div>
+
+
+<div class="belt">
+  <h3><a name="forest.mf">forest.mf(マニフェストファイル)</a></h3>
+</div>
+<pre>
+  Manifest-Version: 1.0
+  Main-Class: forest.Example
+
+</pre>
+
+<div class="belt">
+  <h3><a name="Makefile">Makefile(メイクファイル)</a></h3>
+</div>
+<pre>
+  ANT = env LC_ALL=ja_JP.UTF-8 ant
+
+  all:
+      $(ANT) all
+
+  clean:
+      $(ANT) clean
+
+  test:
+      $(ANT) test
+
+  tree: clean
+      $(ANT) tree
+
+  forest: clean
+      $(ANT) forest
+
+  semilattice: clean
+      $(ANT) semilattice
+
+  install:
+      $(ANT) install
+
+  doc:
+      $(ANT) doc
+
+  zip:
+      $(ANT) zip
+</pre>
+
+
+<div class="belt">
+  <h3><a name="build.xml(">build.xml(ビルドファイル)</a></h3>
+</div>
+<pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+  &lt;project name=&quot;Forest&quot; default=&quot;all&quot; basedir=&quot;.&quot;&gt;
+
+	&lt;property name=&quot;package&quot; value=&quot;forest&quot; /&gt;
+	&lt;property name=&quot;mvc&quot; value=&quot;mvc&quot; /&gt;
+	&lt;property name=&quot;packagenames&quot; value=&quot;${package},${mvc}&quot; /&gt;
+	&lt;property name=&quot;destdir&quot; value=&quot;./Classes&quot; /&gt;
+	&lt;property name=&quot;docdir&quot; value=&quot;./JavaDoc&quot; /&gt;
+	&lt;property name=&quot;instdir&quot; value=&quot;./${ant.project.name}.app/Contents/Resources/Java&quot; /&gt;
+	&lt;property name=&quot;copyright&quot; value=&quot;Copyright 2008-2017 AOKI Atsushi. All Rights Reserved.&quot; /&gt;
+	&lt;property name=&quot;zipname&quot; value=&quot;${ant.project.name}&quot; /&gt;
+
+	&lt;target name=&quot;all&quot; depends=&quot;jar&quot; description=&quot;build all&quot;&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;prepare&quot; depends=&quot;&quot; description=&quot;prepare to compile&quot;&gt;
+		&lt;mkdir dir=&quot;${destdir}&quot; /&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;compile&quot; depends=&quot;prepare&quot; description=&quot;compile all sources&quot;&gt;
+		&lt;javac
+                fork=&quot;true&quot;
+                srcdir=&quot;${basedir}&quot;
+                destdir=&quot;${destdir}&quot;
+                includeAntRuntime=&quot;true&quot;
+                encoding=&quot;UTF-8&quot;
+                deprecation=&quot;on&quot;
+                verbose=&quot;false&quot;&gt;
+			&lt;compilerarg value=&quot;-J-Dfile.encoding=UTF8&quot; /&gt;
+			&lt;compilerarg value=&quot;-Xlint:all&quot; /&gt;
+			&lt;classpath&gt;
+				&lt;pathelement location=&quot;.&quot; /&gt;
+				&lt;pathelement location=&quot;${mvc}.jar&quot; /&gt;
+			&lt;/classpath&gt;
+		&lt;/javac&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;jar&quot; depends=&quot;compile&quot; description=&quot;make jar file&quot;&gt;
+		&lt;jar
+                jarfile=&quot;${package}.jar&quot;
+                basedir=&quot;${destdir}&quot;
+                manifest=&quot;${package}.mf&quot;&gt;
+			&lt;zipfileset src=&quot;${mvc}.jar&quot; /&gt;
+		&lt;/jar&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;clean&quot; description=&quot;cleaning&quot;&gt;
+		&lt;delete dir=&quot;${destdir}&quot; /&gt;
+		&lt;delete file=&quot;${package}.jar&quot; /&gt;
+		&lt;delete dir=&quot;${docdir}&quot; /&gt;
+		&lt;delete dir=&quot;${instdir}&quot; /&gt;
+		&lt;delete file=&quot;../${zipname}.zip&quot; /&gt;
+		&lt;delete&gt;
+			&lt;fileset dir=&quot;${package}&quot; includes=&quot;*.class&quot; /&gt;
+		&lt;/delete&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;test&quot; depends=&quot;all,tree&quot; description=&quot;test&quot;&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;tree&quot; depends=&quot;all&quot; description=&quot;tree&quot;&gt;
+		&lt;exec executable=&quot;java&quot; spawn=&quot;false&quot;&gt;
+			&lt;arg line=&quot;-Dfile.encoding=UTF-8 -Xmx512m -Xss1024k -jar ${package}.jar resource/data/tree.txt&quot; /&gt;
+		&lt;/exec&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;forest&quot; depends=&quot;all&quot; description=&quot;forest&quot;&gt;
+		&lt;exec executable=&quot;java&quot; spawn=&quot;false&quot;&gt;
+			&lt;arg line=&quot;-Dfile.encoding=UTF-8 -Xmx512m -Xss1024k -jar ${package}.jar resource/data/forest.txt&quot; /&gt;
+		&lt;/exec&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;semilattice&quot; depends=&quot;all&quot; description=&quot;semilattice&quot;&gt;
+		&lt;exec executable=&quot;java&quot; spawn=&quot;false&quot;&gt;
+			&lt;arg line=&quot;-Dfile.encoding=UTF-8 -Xmx512m -Xss1024k -jar ${package}.jar resource/data/semilattice.txt&quot; /&gt;
+		&lt;/exec&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;install&quot; depends=&quot;all&quot; description=&quot;install into application&quot;&gt;
+		&lt;copy file=&quot;${package}.jar&quot; todir=&quot;${instdir}&quot; /&gt;
+		&lt;copy file=&quot;resource/data/forest.txt&quot; todir=&quot;${instdir}&quot; /&gt;
+		&lt;exec executable=&quot;chmod&quot;&gt;
+			&lt;arg line=&quot;755 ${instdir}/../../MacOS/applet&quot; /&gt;
+		&lt;/exec&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;doc&quot; depends=&quot;all&quot; description=&quot;make document (javadoc)&quot;&gt;
+		&lt;mkdir dir=&quot;${docdir}&quot; /&gt;
+		&lt;javadoc
+                locale=&quot;ja_JP&quot;
+                sourcepath=&quot;${basedir}&quot;
+                destdir=&quot;${docdir}&quot;
+                packagenames=&quot;${packagenames}&quot;
+                author=&quot;true&quot;
+                version=&quot;true&quot;
+                charset=&quot;UTF-8&quot;
+                encoding=&quot;UTF-8&quot;
+                docencoding=&quot;UTF-8&quot;
+                linksource=&quot;yes&quot;
+                additionalparam=&quot;-J-Dfile.encoding=UTF-8&quot;
+                access=&quot;private&quot;&gt;
+			&lt;doctitle&gt;${doc-title}&lt;/doctitle&gt;
+			&lt;bottom&gt;${copyright}&lt;/bottom&gt;
+			&lt;classpath&gt;
+				&lt;pathelement location=&quot;.&quot; /&gt;
+				&lt;pathelement location=&quot;${mvc}.jar&quot; /&gt;
+			&lt;/classpath&gt;
+		&lt;/javadoc&gt;
+		&lt;exec executable=&quot;open&quot;&gt;
+			&lt;arg line=&quot;-a /Applications/Safari.app ${docdir}/index.html&quot; /&gt;
+		&lt;/exec&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;zip&quot; depends=&quot;clean&quot; description=&quot;make zip file&quot;&gt;
+		&lt;delete file=&quot;../${zipname}.zip&quot; /&gt;
+		&lt;zip destfile=&quot;../${zipname}.zip&quot;&gt;
+			&lt;zipfileset dir=&quot;.&quot; prefix=&quot;${zipname}&quot; /&gt;
+		&lt;/zip&gt;
+		&lt;exec executable=&quot;date&quot; spawn=&quot;false&quot; /&gt;
+	&lt;/target&gt;
+
+&lt;/project&gt;
+
+</pre>
 <hr>
 <div class="right-small">Copyright 20xx Project xx, Updated: 2017/03/13 (Created: 2009/11/11)</div>
 </body>
