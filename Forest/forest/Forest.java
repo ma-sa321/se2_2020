@@ -5,14 +5,13 @@ import java.util.Collections;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Dimension;
 import java.awt.Graphics;
 
-/*
+/**
  * Forestクラス
  *
  */
-public class Forest extends Object{
+public class Forest extends Object {
 
 	private ArrayList<Branch> branches;
 
@@ -28,7 +27,6 @@ public class Forest extends Object{
 		this.nodes = new ArrayList<Node>();
 		this.branches = new ArrayList<Branch>();
 		this.bounds = null;
-
 		return;
 	}
 
@@ -40,7 +38,6 @@ public class Forest extends Object{
 	public void addBranch(Branch aBranch) {
 		this.branches.add(aBranch);
 		this.flushBounds();
-
 		return;
 	}
 
@@ -52,62 +49,64 @@ public class Forest extends Object{
 	public void addNode(Node aNode) {
 		this.nodes.add(aNode);
 		this.flushBounds();
-
 		return;
 	}
 
 	/**
-	 * 樹上整列のトップのメソッド
+	 * 樹状整列のトップのメソッド
 	 *
 	 */
 	public void arrange() {
-		this.arrange(null);
-
+		try { this.arrange(null); }
+		catch (Exception e) { e.printStackTrace(); }
 		return;
 	}
 
 	/**
-	 *  
+	 * 樹状整列のセカンドレベルのメソッド
+	 * @param aModel
 	 */
 	public void arrange(ForestModel aModel) {
-
 		Integer counter = 0;
-		for(Node aNode: this.nodes){
-			Integer height = aNode.getExtent().height + Constants.Margin.y + Constants.Interval.y;
-			aNode.setStatus(Constants.Unvisited);
+		for(Node aNode: this.nodes) {
+			Integer height = aNode.getExtent().y + Constants.Margin.y + Constants.Interval.y;
+			aNode.setStatus(Constants.UnVisited);
 			aNode.setLocation(new Point(0, height*counter++));
 		}
 
 		Point aPoint = new Point(0,0);
 		ArrayList<Node> rootNodes = this.rootNodes();
-		for(Node aNode: rootNodes){
-			Dimension aDimension = this.arrange(aNode, aPoint, aModel);
-			aPoint = new Point(0, aDimension.height + Constants.Interval.y);
+		for(Node aNode: rootNodes) {
+			Point secondPoint = this.arrange(aNode, aPoint, aModel);
+			aPoint = new Point(0, secondPoint.y + Constants.Interval.y);
 		}
-
 		this.flushBounds();
 		return;
 	}
 
 	/**
-	 *  
+	 * 樹状整列の再帰レベルのメソッド
+	 * @param aNode
+	 * @param aPoint
+	 * @param aModel
+	 * @return
 	 */
-	protected Dimension arrange(Node aNode, Point aPoint, ForestModel aModel) {
+	protected Point arrange(Node aNode, Point aPoint, ForestModel aModel) {
 		aNode.setStatus(Constants.Visited);
 		aNode.setLocation(aPoint);
 		this.propagate(aModel);
 
-		Dimension extent = aNode.getExtent();
+		Point extent = aNode.getExtent();
 		ArrayList<Node> subNodes = this.subNodes(aNode);
+		//子ノードがない時
 		if (subNodes.isEmpty()) {
-			Integer width = aPoint.x + extent.width;
-			Integer height = aPoint.y + extent.height;
-			extent = new Dimension(width, height);
-
+			Integer width = aPoint.x + extent.x;
+			Integer height = aPoint.y + extent.y;
+			extent = new Point(width, height);
 			return extent;
 		}
 
-		Integer width = aPoint.x + extent.width;
+		Integer width = aPoint.x + extent.x;
 		Integer height = aPoint.y;
 		Integer x = width + Constants.Interval.x;
 		Integer y = height;
@@ -116,39 +115,37 @@ public class Forest extends Object{
 		for (Node subNode: subNodes) {
 			if (subNode.getStatus() == Constants.UnVisited) {
 				extent = this.arrange(subNode, new Point(x, y), aModel);
-				Integer h = y + subNode.getExtent().height;
-				y = extent.height > h ? extent.height : h;
-				width = extent.width> width ? extent.width : width;
-				height = extent.height > height ? extent.height : height;
+				Integer h = y + subNode.getExtent().y;
+				y = extent.y > h ? extent.y : h; //参考演算子 true:false
+				width = extent.x > width ? extent.x : width;
+				height = extent.y > height ? extent.y : height;
 				y = y + Constants.Interval.y;
 			}
 		}
 
 		y = y - Constants.Interval.y;
-		Integer h = aNode.getExtent().height;
+		Integer h = aNode.getExtent().y;
 		if (y > (aPoint.y + h)) {
 			y = top + ((y - top - h) / 2);
 			aNode.setLocation(new Point(aPoint.x, y));
 			this.propagate(aModel);
 		}
 		height = height > h ? height : h;
-		extent = new Dimension(width, height);
-
+		extent = new Point(width, height);
 		return extent;
 	}
 
 	/**
-	 *  
+	 *
 	 */
 	public Rectangle bounds() {
 		if (this.bounds == null) this.bounds = new Rectangle();
 		this.nodes.forEach(aNode -> this.bounds.add(aNode.getBounds()));
-
 		return this.bounds;
 	}
 
 	/**
-	 *  
+	 *
 	 */
 	public void draw(Graphics aGraphics) {
 		this.branches.forEach( aBranch -> aBranch.draw(aGraphics) );
@@ -156,75 +153,93 @@ public class Forest extends Object{
 	}
 
 	/**
-	 *  
+	 *
 	 */
 	public void flushBounds() {
 		this.bounds = null;
-
 		return;
 	}
 
+	/**
+	 * チックタックの間、スリープし、モデルが変化したと騒ぐメソッド
+	 */
 	protected void propagate(ForestModel aModel) {
+		if(!(aModel == null)) {
+			try{
+				Thread.sleep(Constants.SleepTick);
+				aModel.changed();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			this.flushBounds();
+			aModel.changed();
+		}
 		return;
 	}
 
+	/**
+	 * フォレストの根元（ルート）となるノード群を応答するメソッドです。
+	 * @return
+	 */
 	public ArrayList<Node> rootNodes() {
-		return null;
+		ArrayList<Node> endList = new ArrayList<>();
+		this.branches.forEach(aBranch -> endList.add(aBranch.end()));
+
+		ArrayList<Node> roots = new ArrayList<>();
+		this.nodes.forEach((Node aNode)->
+		{
+			if(!endList.contains(aNode)) roots.add(aNode);
+		});
+		return sortNodes(roots);
 	}
 
 	/**
 	 * ノードをノード名でソートするメソッド
 	 * @param nodeCollection ノード
-	 * return ソートされたノード
-	 *
+	 * @return ソートされたノード
 	 */
 	public ArrayList<Node> sortNodes(ArrayList<Node> nodeCollection) {
-		Collections.sort(nodeCollection);
-
-		return nodeCollection;
+		ArrayList<String> sortNameArray = new ArrayList<>();
+		ArrayList<Node> sortResultArray = new ArrayList<>();
+		for(Node aNode : nodeCollection) { sortNameArray.add(aNode.getName()); }
+		Collections.sort(sortNameArray);
+		for(String sortName : sortNameArray) {
+			for(Node aNode : nodeCollection) { if(sortName.equals(aNode.getName())) sortResultArray.add(aNode); }
+		}
+		return sortResultArray;
 	}
 
 	/**
 	 * 子ノードを返すメソッド
 	 * @param aNode ノード
-	 * return nodeList 子ノード
-	 *
+	 * @return 子ノード
 	 */
 	public ArrayList<Node> subNodes(Node aNode) {
 		ArrayList<Node> nodeList = new ArrayList<>();
-		for(Branch aBranch : this.branches){
-			if(aBranch.start().equals(aNode))
-				nodeList.add(aBranch.end());
-		}
+		for(Branch aBranch : this.branches) { if(aBranch.start().equals(aNode)) nodeList.add(aBranch.end()); }
 
-		return nodeList;
+		return sortNodes(nodeList);
 	}
 
 	/**
 	 * 親ノードを返すメソッド
 	 * @param aNode ノード
-	 * return nodeList 親ノード
+	 * @return 親ノード
 	 *
 	 */
 	public ArrayList<Node> superNode(Node aNode) {
 		ArrayList<Node> nodeList = new ArrayList<>();
-		for(Branch aBranch : this.branches){
-			if(aBranch.end().equals(aNode))
-				nodeList.add(aBranch.start());
-		}
-
-		return nodeList;
+		for(Branch aBranch : this.branches){ if(aBranch.end().equals(aNode)) nodeList.add(aBranch.start());	}
+		return sortNodes(nodeList);
 	}
 
 	/**
 	 * クラスを文字列に変換するメソッド
-	 * return aBuffer.toString()
-	 *
+	 * @return
 	 */
 	public String toString() {
 		StringBuffer aBuffer = new StringBuffer();
 		Class<?> aClass = this.getClass();
-
 		aBuffer.append(aClass.getName());
 		aBuffer.append("[bounds=");
 		aBuffer.append(this.bounds);
@@ -233,25 +248,19 @@ public class Forest extends Object{
 		aBuffer.append(", branches=");
 		aBuffer.append(this.branches);
 		aBuffer.append("]");
-
 		return aBuffer.toString();
 	}
 
 	/**
 	 * 座標にノードが存在するかどうかを調べるメソッド
-	 * return aNode もしくはnull
-	 *
+	 * @return aNode もしくはnull
 	 */
 	public Node whichOfNodes(Point aPoint) {
-		for(Node aNode : this.nodes){
+		for(Node aNode : this.nodes) {
 			Rectangle aRectangle = aNode.getBounds();
-			if(aRectangle.contains(aPoint))
-				return aNode;
+			if(aRectangle.contains(aPoint)) return aNode;
 		}
-
 		return null;
 	}
 
 }
-
-

@@ -1,103 +1,56 @@
-import java.util.Collection;
-import java.awt.Color;
+package forest;
+
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.Point;
+import mvc.View;
 
-public class ForestView  extends Model{
-
-	private ForestController controller;
-
-	private ForestModel model;
-
-	private Point offset;
-
+@SuppressWarnings("serial")
+public class ForestView extends View {
 
 	/**
-	 *  
+	 *
+	 * @param aModel
 	 */
-
 	public ForestView(ForestModel aModel) {
-		super();
-		model = aModel;
+		super(aModel, new ForestController());
 		return;
 	}
 
+	/**
+	 *
+	 * @param aGraphics
+	 */
+	@Override
 	public void paintComponent(Graphics aGraphics) {
+		// 樹状整列の境界領域を求め、その領域と高さの画像を生成する。
 		int width = this.getWidth();
 		int height = this.getHeight();
-		aGraphics.setColor(Color.lightGray);
+		aGraphics.setColor(Constants.BackgroundColor);
 		aGraphics.fillRect(0, 0, width, height);
-		ForestModel aModel = this.model;
-		if (aModel == null) {
-			 return; 
-		}
-		BufferedImage picture = model.picture();
-		if (picture == null) {
-			 return;
-		}
-		aGraphics.drawImage(picture, offset.x, offset.y, null);
+
+		ForestModel aModel = (ForestModel)this.model;
+		if (aModel == null) { return; }
+		BufferedImage picture = this.model.picture();
+		if (picture == null) { return; }
+
+		Integer x = 0 - this.scrollAmount().x;
+		Integer y = 0 - this.scrollAmount().y;
+		aGraphics.drawImage(picture, x, y, null);
 		return;
 	}
 
 	/**
-	 *  
-	 */
-	public void scrollBy(Point aPoint) {
-		int x = offset.x + aPoint.x;
-		int y = offset.y + aPoint.y;
-		this.scrollTo(new Point(x, y));
-		return;
-	}
-
-	/**
-	 *  
-	 */
-	public void scrollTo(Point aPoint) {
-		int x = 0 - offset.x;
-		int y = 0 - offset.y;
-		return (new Point(x, y));
-	}
-
-	/**
-	 *  
-	 */
-	public String toString() {
-		StringBuffer aBuffer = new StringBuffer();
-		Class<?> aClass = this.getClass();
-		aBuffer.append(aClass.getName());
-		aBuffer.append("[model=");
-		aBuffer.append(model);
-		aBuffer.append(",offset=");
-		aBuffer.append(offset);
-		aBuffer.append(",controller=");
-		aBuffer.append(controller);
-		aBuffer.append("]");
-		return aBuffer.toString();
-	}
-
-	public void update() {
-		this.repaint(0, 0, this.getWidth(), this.getHeight());
-		return;
-	}
-
-	/**
-	 *  
+	 *
+	 * @param aPoint
+	 * @return
 	 */
 	public Node whichOfNodes(Point aPoint) {
-		Integer x = aPoint.x;
-		Integer y = aPoint.y;
+		Integer x = aPoint.x + this.scrollAmount().x;
+		Integer y = aPoint.y + this.scrollAmount().y;
 		Point nodePoint = new Point(x, y);
-		ForestModel aModel = this.model;
-		Node aNode = aModel.whichOfNodes(nodePoint);
+		ForestModel aModel = (ForestModel)this.model;
+		Node aNode = aModel.forest().whichOfNodes(nodePoint);
 		return aNode;
 	}
 }
