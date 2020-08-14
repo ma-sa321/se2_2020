@@ -1,3 +1,5 @@
+package forest;
+
 import java.util.Collection;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,8 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Point;
+import mvc.View;
 
-public class ForestView  extends Model{
+@SuppressWarnings("serial")
+public class ForestView extends View{
 
 	private ForestController controller;
 
@@ -26,25 +30,39 @@ public class ForestView  extends Model{
 	 */
 
 	public ForestView(ForestModel aModel) {
-		super();
-		model = aModel;
+		super(aModel);
+		this.model = aModel;
+		this.controller = new ForestController();
+		this.offset = new Point(0,0);
 		return;
 	}
 
 	public void paintComponent(Graphics aGraphics) {
-		int width = this.getWidth();
-		int height = this.getHeight();
-		aGraphics.setColor(Color.lightGray);
-		aGraphics.fillRect(0, 0, width, height);
-		ForestModel aModel = this.model;
-		if (aModel == null) {
-			 return; 
+		try {
+//			aGraphics = model.picture().createGraphics();
+
+			// 樹状整列の境界領域を求め、その領域と高さの画像を生成する。
+			Forest forest = model.forest();
+			Rectangle aRectangle = forest.bounds();
+
+			int width = (int) aRectangle.getWidth();
+			int height = (int) aRectangle.getHeight();
+			aGraphics.setColor(Constants.BackgroundColor);
+			aGraphics.fillRect(0, 0, width, height);
+			aGraphics.setFont(Constants.DefaultFont);
+
+			ForestModel aModel = this.model;
+			if (aModel == null) {
+				return;
+			}
+			BufferedImage picture = this.model.picture();
+			if (picture == null) {
+				return;
+			}
+			aGraphics.drawImage(picture, this.offset.x, this.offset.y, null);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		BufferedImage picture = model.picture();
-		if (picture == null) {
-			 return;
-		}
-		aGraphics.drawImage(picture, offset.x, offset.y, null);
 		return;
 	}
 
@@ -52,8 +70,8 @@ public class ForestView  extends Model{
 	 *  
 	 */
 	public void scrollBy(Point aPoint) {
-		int x = offset.x + aPoint.x;
-		int y = offset.y + aPoint.y;
+		int x = this.offset.x + aPoint.x;
+		int y = this.offset.y + aPoint.y;
 		this.scrollTo(new Point(x, y));
 		return;
 	}
@@ -62,9 +80,9 @@ public class ForestView  extends Model{
 	 *  
 	 */
 	public void scrollTo(Point aPoint) {
-		int x = 0 - offset.x;
-		int y = 0 - offset.y;
-		return (new Point(x, y));
+		int x = 0 - this.offset.x;
+		int y = 0 - this.offset.y;
+		return;
 	}
 
 	/**
@@ -75,16 +93,17 @@ public class ForestView  extends Model{
 		Class<?> aClass = this.getClass();
 		aBuffer.append(aClass.getName());
 		aBuffer.append("[model=");
-		aBuffer.append(model);
+		aBuffer.append(this.model);
 		aBuffer.append(",offset=");
-		aBuffer.append(offset);
+		aBuffer.append(this.offset);
 		aBuffer.append(",controller=");
-		aBuffer.append(controller);
+		aBuffer.append(this.controller);
 		aBuffer.append("]");
 		return aBuffer.toString();
 	}
 
 	public void update() {
+		System.out.println("getWidth : " + this.getWidth());
 		this.repaint(0, 0, this.getWidth(), this.getHeight());
 		return;
 	}
@@ -96,8 +115,8 @@ public class ForestView  extends Model{
 		Integer x = aPoint.x;
 		Integer y = aPoint.y;
 		Point nodePoint = new Point(x, y);
-		ForestModel aModel = this.model;
-		Node aNode = aModel.whichOfNodes(nodePoint);
+		Forest forest = this.model.forest();
+		Node aNode = forest.whichOfNodes(nodePoint);
 		return aNode;
 	}
 }

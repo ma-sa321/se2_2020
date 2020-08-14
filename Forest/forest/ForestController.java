@@ -3,35 +3,26 @@ package forest;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.lang.StringBuffer;
+import mvc.Controller;
+import java.awt.Cursor;
+import java.awt.Component;
+import mvc.View;
 
-public class ForestController {
-
-	private Point current;
-
-	private Point previous;
+public class ForestController extends Controller {
 
 	private ForestView view;
 
-	private ForestModel model;
-
 	public ForestController() {
 		super();
-		model = null;
-		view = null;
-		previous = null;
-		current = null;
 		return;
 	}
-
-	public void mouseClicked(MouseEvent a) {
+	@Override
+	public void mouseClicked(MouseEvent aMouseEvent) {
 		Point aPoint = aMouseEvent.getPoint();
-		aPoint.translate(view.scrollAmount().x, view.scrollAmount().y);
-		System.out.println(aPoint);
+		Node aNode = this.view.whichOfNodes(aPoint);
+
+		if(aNode != null) System.out.println(aNode.getName());
 		return;
 	}
 
@@ -39,16 +30,16 @@ public class ForestController {
 	 *  
 	 */
 	public void mouseDragged(MouseEvent aMouseEvent) {
-		Cursor aCursor = Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
-		Component aComponent = (Component)aMouseEvent.getSource();
-		aComponent.setCursor(aCursor);
-		current = aMouseEvent.getPoint();
-		int x = current.x - previous.x;
-		int y = current.y - previous.y;
-		Point point = new Point(x, y);
-		view.scrollBy(point);
-		view.repaint();
-		previous = current;
+		// Cursor aCursor = Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
+		// Component aComponent = (Component)aMouseEvent.getSource();
+		// aComponent.setCursor(aCursor);
+//		this.current = aMouseEvent.getPoint();
+//		int x = this.current.x - this.previous.x;
+//		int y = this.current.y - this.previous.y;
+//		Point point = new Point(x, y);
+//		this.view.scrollBy(point);
+//		this.view.update();
+//		this.previous = this.current;
 		return;
 	}
 
@@ -65,20 +56,20 @@ public class ForestController {
 	}
 
 	public void mousePressed(MouseEvent aMouseEvent) {
-		Cursor aCursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
-		Component aComponent = (Component)aMouseEvent.getSource();
-		aComponent.setCursor(aCursor);
-		current = aMouseEvent.getPoint();
-		previous = current;
+		// Cursor aCursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
+		// Component aComponent = (Component)aMouseEvent.getSource();
+		// aComponent.setCursor(aCursor);
+//		this.current = aMouseEvent.getPoint();
+//		this.previous = this.current;
 		return;
 	}
 
 	public void mouseReleased(MouseEvent aMouseEvent) {
-		Cursor aCursor = Cursor.getDefaultCursor();
-		Component aComponent = (Component)aMouseEvent.getSource();
-		aComponent.setCursor(aCursor);
-		current = aMouseEvent.getPoint();
-		previous = current;
+		// Cursor aCursor = Cursor.getDefaultCursor();
+		// Component aComponent = (Component)aMouseEvent.getSource();
+		// aComponent.setCursor(aCursor);
+//		this.current = aMouseEvent.getPoint();
+//		this.previous = this.current;
 		return;
 	}
 
@@ -87,27 +78,28 @@ public class ForestController {
 	}
 
 	public void setModel(ForestModel aModel) {
-		model = aModel;
+//		this.model = aModel;
 		return;
 	}
 
 	public void setView(ForestView aView) {
-		view = aView;
-		view.addMouseListener(this);
-		view.addMouseMotionListener(this);
-		view.addMouseWheelListener(this);
+//		this.view = aView;
+//		this.view.addMouseListener(this);
+//		this.view.addMouseMotionListener(this);
+//		this.view.addMouseWheelListener(this);
 		return;
 	}
 
-	public String toString() {
-		Class<?> aClass = this.getClass();
-		aBuffer.append(aClass.getName());
-		aBuffer.append("[model=");
-		aBuffer.append(model);
-		aBuffer.append(",view=");
-		aBuffer.append(view);
-		aBuffer.append("]");
-		return aBuffer.toString();
-	}
+//	public String toString() {
+//		StringBuffer aBuffer = new StringBuffer();
+//		Class<?> aClass = this.getClass();
+//		aBuffer.append(aClass.getName());
+//		aBuffer.append("[model=");
+//		aBuffer.append(this.model);
+//		aBuffer.append(",view=");
+//		aBuffer.append(this.view);
+//		aBuffer.append("]");
+//		return aBuffer.toString();
+//	}
 
 }

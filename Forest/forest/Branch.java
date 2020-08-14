@@ -59,7 +59,7 @@ public class Branch extends Object
         Integer y2 = location.y + (extent.y / 2);
 
         // ブランチ（枝）の線を描画コンテクストへ描き出す。
-        aGraphics.setColor(Color.BLACK);
+        aGraphics.setColor(Constants.ForegroundColor);
         aGraphics.drawLine(x1, y1, x2, y2);
 
         return;
