@@ -1,8 +1,9 @@
 package forest;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import mvc.Model;
+import mvc.View;
 
 /**
  * 樹状整列におけるMVCのモデル（M）を担うクラス。
@@ -25,10 +27,6 @@ public class ForestModel extends Model
 	 */
 	private Forest forest;
 
-	private BufferedImage picture;
-
-	private ArrayList<ForestView> dependents;
-
 	/**
 	 * このクラスのインスタンスを生成するコンストラクタ。
 	 * @param aFile 樹状整列データファイル
@@ -39,8 +37,6 @@ public class ForestModel extends Model
 
 		// フォレストのインスタンスを生成して保持し、樹状整列データファイルを読み込み、樹状整列させる。
 		this.forest = new Forest();
-		this.dependents = new ArrayList<ForestView>();
-		this.picture = null;
 
 		try
 		{
@@ -92,7 +88,11 @@ public class ForestModel extends Model
 			this.picture(new BufferedImage(aRectangle.width, aRectangle.height, BufferedImage.TYPE_INT_RGB));
 
 			// 画像の描画コンテクスト（グラフィックス）を取り出し、それを背景で塗りつぶす。
-			Graphics aGraphics = this.picture().createGraphics();
+			Graphics2D aGraphics = this.picture().createGraphics();
+			aGraphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+			aGraphics.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+			aGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			
 			aGraphics.setColor(Constants.BackgroundColor);
 			aGraphics.fillRect(0, 0, aRectangle.width, aRectangle.height);
 
@@ -100,9 +100,9 @@ public class ForestModel extends Model
 			this.forest.draw(aGraphics);
 
 			// モデルが変化していることを依存物であるビューたちへ連絡（updateを依頼）する。
-			this.dependents.forEach((ForestView aView) -> {
+			for(View aView: this.dependents){
 				aView.update();
-			});
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -187,7 +187,7 @@ public class ForestModel extends Model
 	 */
 	public Node root()
 	{
-		List<Node> roots = this.roots();
+		ArrayList<Node> roots = this.roots();
 
 		return (roots.size() > 0) ? (roots.get(0)) : (null);
 	}
@@ -195,7 +195,7 @@ public class ForestModel extends Model
 	 * 
 	 * @return
 	 */
-	public List<Node> roots()
+	public ArrayList<Node> roots()
 	{
 		return this.forest().rootNodes();
 	}
