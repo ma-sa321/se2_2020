@@ -249,14 +249,16 @@ th {
 <hr>
 <h2>ソフトウェア工学II「樹状整列」テスト仕様書</h2>
 <div class="belt">
-  <h3><a name="KanseiSaseteKudasai">一覧</a></h3>
+  <h3><a name="list">一覧</a></h3>
 </div>
 <ul>
   <li><a href="#Example">Example</a>（メインクラス）</li>
   <li><a href="#ForestModel">ForestModel</a></li>
   <li><a href="#ForestView">ForestView</a></li>
   <li><a href="#ForestController">ForestController</a></li>
+  <li><a href="#Branch">Branch</a></li>
   <li><a href="#Node">Node</a></li>
+  <li><a href="#Forest">Forest</a></li>
 </ul>
 <div class="Example">
   <div class="belt">
@@ -639,14 +641,12 @@ th {
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">マウスのボタンをクリックした時に動作するメソッド</td>
             <td class="left-padding"></td>
-            <td class="left-padding"></td>
           </tr>
           <tr>
             <td class="left-padding"><code><a href="../Program/index.html#Example-main">mouseDragged(MouseEvent aMouseEvent)</a></code></td>
             <td class="left-padding"><code>void</code></td>
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">マウスをドラッグしたときに動作するメソッド</td>
-            <td class="left-padding"></td>
             <td class="left-padding"></td>
           </tr>
           <tr>
@@ -655,14 +655,12 @@ th {
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">マウスがウィンドウに入ったときに動作するメソッド</td>
             <td class="left-padding"></td>
-            <td class="left-padding"></td>
           </tr>
           <tr>
             <td class="left-padding"><code><a href="../Program/index.html#Example-main">mouseExited(mouseEvent aMouseEvent)</a></code></td>
             <td class="left-padding"><code>void</code></td>
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">マウスがウィンドウを出た時に動作するメソッド</td>
-            <td class="left-padding"></td>
             <td class="left-padding"></td>
           </tr>
           <tr>
@@ -671,14 +669,12 @@ th {
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">マウスが移動したときのメソッド</td>
             <td class="left-padding"></td>
-            <td class="left-padding"></td>
           </tr>
           <tr>
             <td class="left-padding"><code><a href="../Program/index.html#Example-main">mousePressed(mouseEvent aMouseEvent)</a></code></td>
             <td class="left-padding"><code>void</code></td>
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">マウスのボタンが押されたときのメソッド</td>
-            <td class="left-padding"></td>
             <td class="left-padding"></td>
           </tr>
           <tr>
@@ -687,14 +683,12 @@ th {
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">マウスのボタンが離されたときのメソッド</td>
             <td class="left-padding"></td>
-            <td class="left-padding"></td>
           </tr>
           <tr>
             <td class="left-padding"><code><a href="../Program/index.html#Example-main">mouseWheelMoved(MouseWheelEvent aMouseWheelEvent)</a></code></td>
             <td class="left-padding"><code>void</code></td>
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">マウスのホイールが動かされた時に動作するメソッド</td>
-            <td class="left-padding"></td>
             <td class="left-padding"></td>
           </tr>
           <tr>
@@ -703,14 +697,12 @@ th {
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">モデルをセットするメソッド</td>
             <td class="left-padding"></td>
-            <td class="left-padding"></td>
           </tr>
           <tr>
             <td class="left-padding"><code><a href="../Program/index.html#Example-main">setView(View aView)</a></code></td>
             <td class="left-padding"><code>void</code></td>
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">ビューをセットするメソッド</td>
-            <td class="left-padding"></td>
             <td class="left-padding"></td>
           </tr>
           <tr>
@@ -719,6 +711,97 @@ th {
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">自分自身を文字列に変換するメソッド</td>
             <td class="left-padding"></td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="Branch">
+  <div class="belt">
+    <h3><a name="Branch" href="../Program/index.html#Branch">Branch</a></h3>
+  </div>
+  <table summary="table">
+    <tbody>
+    <tr>
+      <td>
+        <table border="1" summary="table">
+          <tbody>
+          <tr>
+            <th class="left-padding" abbr="1">フィールド（属性：インスタンス変数）</th>
+            <th class="left-padding" abbr="2">束縛</th>
+            <th class="left-padding" abbr="3">分類</th>
+            <th class="left-padding" abbr="4">説明</th>
+            <th class="left-padding" abbr="5">テスト結果</th>
+          </tr>
+          <tr>
+            <td class="left-padding"><code>end</code></td>
+            <td class="left-padding"><code>int</code></td>
+            <td class="left-padding"><code>private</code></td>
+            <td class="left-padding">ブランチの終点となるノードを記憶するフィールド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code>start</code></td>
+            <td class="left-padding"><code>int</code></td>
+            <td class="left-padding"><code>private</code></td>
+            <td class="left-padding">ブランチの始点となるノードを記憶するフィールド</td>
+            <td class="left-padding"></td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <table summary="table">
+    <tbody>
+    <tr>
+      <td>
+        <table border="1" summary="table">
+          <tbody>
+          <tr>
+            <th class="left-padding" abbr="1">メソッド（操作）</th>
+            <th class="left-padding" abbr="2">応答</th>
+            <th class="left-padding" abbr="3">分類</th>
+            <th class="left-padding" abbr="4">説明</th>
+            <th class="left-padding" abbr="5">テスト結果</th>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">Branch(int from, int to)</a></code></td>
+            <td class="left-padding"><code>nistance</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">インスタンスを生成するコンストラクタ</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">draw(Graphics aGraphics)</a></code></td>
+            <td class="left-padding"><code>void</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">ブランチを描くメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">end()</a></code></td>
+            <td class="left-padding"><code>int</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">ブランチの終点となるノードを応答するメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">start()</a></code></td>
+            <td class="left-padding"><code>int</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">ブランチの始点となるノードを応答するメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">getName()</a></code></td>
+            <td class="left-padding"><code>String</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">自分自身を文字列に変換するメソッド</td>
             <td class="left-padding"></td>
           </tr>
           </tbody>
@@ -874,6 +957,182 @@ th {
             <td class="left-padding"><code>String</code></td>
             <td class="left-padding"><code>public</code></td>
             <td class="left-padding">自分自身を文字列に変換するメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="Forest">
+  <div class="belt">
+    <h3><a name="Forest" href="../Program/index.html#Forest">Forest</a></h3>
+  </div>
+  <table summary="table">
+    <tbody>
+    <tr>
+      <td>
+        <table border="1" summary="table">
+          <tbody>
+          <tr>
+            <th class="left-padding" abbr="1">フィールド（属性：インスタンス変数）</th>
+            <th class="left-padding" abbr="2">束縛</th>
+            <th class="left-padding" abbr="3">分類</th>
+            <th class="left-padding" abbr="4">説明</th>
+            <th class="left-padding" abbr="5">テスト結果</th>
+          </tr>
+          <tr>
+            <td class="left-padding"><code>bounds</code></td>
+            <td class="left-padding"><code>Rectangle</code></td>
+            <td class="left-padding"><code>private</code></td>
+            <td class="left-padding"></td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code>branches</code></td>
+            <td class="left-padding"><code>ArrayList&lt;Branch&gt;</code></td>
+            <td class="left-padding"><code>private</code></td>
+            <td class="left-padding">ブランチを記憶するフィールド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code>nodes</code></td>
+            <td class="left-padding"><code>ArrayList&lt;Node&gt;</code></td>
+            <td class="left-padding"><code>private</code></td>
+            <td class="left-padding">ノードを記憶するフィールド</td>
+            <td class="left-padding"></td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <table summary="table">
+    <tbody>
+    <tr>
+      <td>
+        <table border="1" summary="table">
+          <tbody>
+          <tr>
+            <th class="left-padding" abbr="1">メソッド（操作）</th>
+            <th class="left-padding" abbr="2">応答</th>
+            <th class="left-padding" abbr="3">分類</th>
+            <th class="left-padding" abbr="4">説明</th>
+            <th class="left-padding" abbr="5">テスト結果</th>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">Forest()</a></code></td>
+            <td class="left-padding"><code>instance</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">インスタンスを生成するコンストラクタ</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">addBranch(Branch aBranch)</a></code></td>
+            <td class="left-padding"><code>void</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">ブランチを追加するメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">addNode(int aNode)</a></code></td>
+            <td class="left-padding"><code>void</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">ノードを追加するメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">arrange()</a></code></td>
+            <td class="left-padding"><code>void</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">樹状整列のトップのメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">arrange(Model aModel)</a></code></td>
+            <td class="left-padding"><code>void</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding"></td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">arrange(int aNode, Point aPoint, Model aModel)</a></code></td>
+            <td class="left-padding"><code>void</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding"></td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">bounds()</a></code></td>
+            <td class="left-padding"><code>Rectangle</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">描画領域を応答するメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">draw(Graphics aGraphics)</a></code></td>
+            <td class="left-padding"><code>void</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">フォレストを描くメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">flushBounds()</a></code></td>
+            <td class="left-padding"><code>void</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">描画領域をリセットするメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">propagate(Model aModel)</a></code></td>
+            <td class="left-padding"><code>void</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding"></td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">rootNodes()</a></code></td>
+            <td class="left-padding"><code>ArrayList&lt;View&gt;</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">フォレストのルートのノードを応答するメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">sortNodes(ArrayList&lt;View&gt; nodeCollection)</a></code></td>
+            <td class="left-padding"><code>ArrayList&lt;View&gt;</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">ノードをノード名でソートするメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">subNodes(int aNode)</a></code></td>
+            <td class="left-padding"><code>ArrayList&lt;View&gt;</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">子ノードを応答するメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">superNode(int aNode)</a></code></td>
+            <td class="left-padding"><code>ArrayList&lt;View&gt;</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">親ノードを応答するメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">toString()</a></code></td>
+            <td class="left-padding"><code>String</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">自分自身を文字列に変換するメソッド</td>
+            <td class="left-padding"></td>
+          </tr>
+          <tr>
+            <td class="left-padding"><code><a href="../Program/index.html#Example-main">whichOfNodes(Point aPoint)</a></code></td>
+            <td class="left-padding"><code>int</code></td>
+            <td class="left-padding"><code>public</code></td>
+            <td class="left-padding">指定された座標によりどのノードかを応答するメソッド</td>
             <td class="left-padding"></td>
           </tr>
           </tbody>
