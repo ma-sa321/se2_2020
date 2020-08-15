@@ -249,9 +249,100 @@ th {
 <hr>
 <h2>ソフトウェア工学II「樹状整列」マニュアル</h2>
 <div class="belt">
-<h3><a name="KanseiSaseteKudasai">完成させてください</a></h3>
+  <h3><a name="KanseiSaseteKudasai">インストール方法</a></h3>
+</div>  
+<div class="left-tab">
+  <p>1. <a href="https://github.com/ma-sa321/se2_2020">Forest(GitHub)</a>にアクセスし、codeをクリックする。</p>
+  <p> その後、urlをコピーする。またはzipファイルをDLする。</p>
+  <p>2.任意のディレクトリに移動する。</p>
+  <div class="belt-blue left-tab">
+    <p>$ cd (任意のディレクトリ)</p>
+  </div>
+  <p>3-1. cloneする場合、以下のコマンドを実行する。</p>
+  <div class="belt-blue left-tab">
+    <p>$  git clone https://github.com/ma-sa321/se2_2020.git</p>
+  </div>
+  <p>3-2. zipを解凍する場合、以下のコマンドを実行する。</p>
+  <div class="belt-blue left-tab">
+    <p>$ unzip se2_2020.zip</p>
+  </div>
+  <p>4. 展開したディレクトリへ移動する。</p>
+  <div class="left-tab">
+    <p class="belt-blue">$ cd se2_2020</p>
+  </div>
+  <p>5. 中身の確認。</p>
+  <div class="belt-blue left-tab">
+    <p>ls -l</p>
+    <p></p>
+    <p>README.md</p>
+    <p></p>
+    <p>DetailedDesign:</p>
+
+    <p>Branch詳細設計.asta		Forest全体クラス図.asta		基本設計.asta</p>
+    <p>Controller詳細設計.asta		Model詳細設計.asta		基本設計.png</p>
+    <p>Example.asta			Node詳細設計.asta</p>
+    <p>Forest詳細設計.asta		View詳細設計.asta</p>
+    <p></p>
+    <p>Forest:</p>
+    <p>Classes		build.xml	forest.jar	mvc.jar</p>
+    <p>Makefile	forest		forest.mf	resource</p>
+    <p></p>
+    <p>Forest_Document:</p>
+    <p>BasicDesign		DevelopmentResult	Requirement		index.html</p>
+    <p>DetailDesign		Manual			TestResult</p>
+    <p>DevelopmentPlan		Program			TestSpecification</p>
+    <p></p>
+    <p>MVC:</p>
+    <p>MVC.app				build.xml			mvc</p>
+    <p>Makefile			clang-format-for-java.yaml	mvc.mf</p>
+  </div>
+  <p>6. Forestフォルダに移動し、makeする。</p>
+  <div class="belt-blue left-tab">
+    <p>$ cd Forest</p>
+    <p>$ make</p>
+    <p>env LC_ALL=ja_JP.UTF-8 ant all</p>
+    <p>Picked up _JAVA_OPTIONS: -Dfile.encoding=UTF-8</p>
+    <p>Buildfile: /Users/flag/Desktop/se2/se2_2020/Forest/build.xml</p>
+
+    <p>prepare:</p>
+    <p>[mkdir] Created dir: /Users/flag/Desktop/se2/se2_2020/Forest/Classes</p>
+    <p>[exec] 2020年 8月15日 土曜日 16時45分55秒 JST</p>
+
+    <p>compile:</p>
+    <p>[javac] Compiling 8 source files to /Users/flag/Desktop/se2/se2_2020/Forest/Classes</p>
+    <p>[javac] Picked up _JAVA_OPTIONS: -Dfile.encoding=UTF-8</p>
+    <p>[exec] 2020年 8月15日 土曜日 16時45分57秒 JST</p>
+
+    <p>jar:</p>
+    <p>[jar] Building jar: /Users/flag/Desktop/se2/se2_2020/Forest/forest.jar</p>
+    <p>[exec] 2020年 8月15日 土曜日 16時45分57秒 JST</p>
+
+    <p>all:</p>
+    <p>[exec] 2020年 8月15日 土曜日 16時45分57秒 JST</p>
+  </p>
+
+  </div>
+</div>
+<div class="belt">
+  <h3><a name="KanseiSaseteKudasai">実行方法</a></h3>
+</div>
+<div class="left-tab">
+  <p>実行するためのコマンドは以下の通りである</p>
+  <div class="belt-blue">
+    <p>$ make tree</p>
+  </div>
+  <div class="belt-blue">
+    <p>$ make forest</p>
+  </div>
+  <p>以下に実行例を示す。なお、初期の画面では見切れてしまったので整理終了後の様子は画像で示す</p>
+  <p>make tree</p>
+  <td class="center-small"><a href="image/tree.gif"></a><img class="borderless" src="image/tree.gif" width="408" height="319" alt="semilattice"></a></td>
+  <td class="center-small"><a href="image/tree.png"></a><img class="borderless" src="image/tree.png" width="408" height="319"</a></td>
+  <p>make forest</p>
+  <td class="center-small"><a href="image/forest.gif"></a><img class="borderless" src="image/forest.gif" width="408" height="319" alt="semilattice"></a></td>
+  <td class="center-small"><a href="image/forest.png"></a><img class="borderless" src="image/forest.png" width="408" height="319"</a></td>
 </div>
 <hr>
-<div class="right-small">Copyright 20xx Project xx, Updated: 2017/03/13 (Created: 2009/11/11)</div>
 </body>
 </html>
+
