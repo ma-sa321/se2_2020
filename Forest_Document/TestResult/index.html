@@ -249,9 +249,98 @@ th {
 <hr>
 <h2>ソフトウェア工学II「樹状整列」テスト結果報告書</h2>
 <div class="belt">
-<h3><a name="KanseiSaseteKudasai">完成させてください</a></h3>
+<h3>MacBook Air</h3>
 </div>
+<h4>【正常動作 : 2020年8月14日】目標と性能を充足</h4>
+<h4>OS : Mac OS X Catalina(version 10.15.3)</h4>
+<pre>
+  $ java -version
+  Picked up _JAVA_OPTIONS: -Dfile.encoding=UTF-8
+  java version "14.0.1" 2020-04-14
+  Java(TM) SE Runtime Environment (build 14.0.1+7)
+  Java HotSpot(TM) 64-Bit Server VM (build 14.0.1+7, mixed mode, sharing)
+</pre>
+<table>
+  <td>
+    <ul>
+      <li>Processor : Intel Core i5 Quad 1.1GHz</li>
+      <li>Memory : 8GB</li>
+      <li>Graphics : Intel Iris Plus Graphics 1536MB</li>
+    </ul>
+  </td>
+</table>
+
+<div class="belt">
+  <h3>Linux</h3>
+</div>
+<h4>【正常動作 : 2020年8月15日】目標と性能を充足</h4>
+<h4>OS : Ubuntu 20.04 LTS</h4>
+<pre>
+  $ java -version
+  java version "14.0.2" 2020-07-14
+  Java(TM) SE Runtime Environment (build 14.0.2+12-46)
+  Java HotSpot(TM) 64-Bit Server VM (build 14.0.2+12-46, mixed mode, sharing)
+</pre>
+<table>
+  <td>
+    <ul>
+      <li>Processor : Intel Core i5 Dual 1.6GHz</li>
+      <li>Memory : 1024MB(VM環境)</li>
+      <li>Graphics : Intel HD Graphics 6000 1536MB</li>
+    </ul>
+  </td>
+</table>
+
+<div class="belt">
+  <h3>Windows</h3>
+</div>
+<h4>【動作不可 : 2020年8月15日】目標と性能を充足</h4>
+<h4>OS : Windows10 バージョン2004(OSビルド 19041.450)</h4>
+<pre>
+  PS > javac --version
+  java 14.0.1
+
+  PS > java --version
+  java 14.0.1 2020-04-14
+  Java(TM) SE Runtime Environment (build 14.0.1+7)
+  Java HopSpot(TM) 64-Bit Server VM (build 14.0.1+7, mixed mode, sharing)
+</pre>
+<table>
+  <td>
+    <ul>
+      <li>Processor : Intel(R) Core(TM) i7-4770 CPU @ 3.40GHz</li>
+      <li>Memory : 16GB DDR3</li>
+      <li>Graphics : NVIDIA GeForce GTX 760</li>
+    </ul>
+  </td>
+</table>
+<h4>原因</h4>
+<pre>
+  ----------
+  PS > make
+  process_begin: CreateProcess(NULL, env LC_ALL=ja_JP.UTF-8 ant all, ...) failed.
+  make (e=2): 指定されたフィルが見つかりません。
+  make: *** [all]エラー 2
+  ----------
+  PS > ant test
+  Buildfile C:\User\USER_NAME\Forest\build.xml
+
+  prepare:
+
+  BUILD FAILED
+  .
+  .
+  .
+  ----------
+  PS \Forest > javac -cp mvc.jar forest/*.java -encoding UTF-8
+  PS \Forest > jar -cvfm forest.jar forest.mf forest/*.class
+  PS \Forest > java -jar forest.jar
+  エラー: メイン・クラスforest.Exampleを初期化できません
+  原因: java.lang.NoClassDefFoundError: mvc/View
+  ----------
+
+</pre>
 <hr>
-<div class="right-small">Copyright 20xx Project xx, Updated: 2017/03/13 (Created: 2009/11/11)</div>
+<div class="right-small">Copyright 2020 Project C.A.C., Updated: 2020/08/15 (Created: 2009/11/11)</div>
 </body>
 </html>
