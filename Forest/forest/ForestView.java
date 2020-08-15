@@ -9,7 +9,7 @@ import mvc.View;
 public class ForestView extends View {
 
 	/**
-	 * このクラスのインスタンスを生成するコンストラクタ。
+	 * このクラスのインスタンスを生成するコンストラクタ
 	 * @param aModel このビューの依存物となるモデル
 	 */
 	public ForestView(ForestModel aModel) {
@@ -18,7 +18,7 @@ public class ForestView extends View {
 	}
 
 	/**
-	 * 画像の描画を行うメソッド。
+	 * 画像の描画を行うメソッド
 	 * @param aGraphics グラフィックス（描画コンテクスト）
 	 */
 	@Override
@@ -41,7 +41,7 @@ public class ForestView extends View {
 	}
 
 	/**
-	 * 座標からNodeを取り出すメソッド。
+	 * 座標からNodeを取り出すメソッド
 	 * @param aPoint 座標
 	 * @return ノード
 	 */

@@ -8,27 +8,27 @@ import java.awt.Rectangle;
 import java.awt.Graphics;
 
 /**
- * 樹状整列を担うクラス。
+ * 樹状整列を担うクラス
  */
 public class Forest extends Object {
 
-	/*
-	 * ブランチを記憶するフィールド。
+	/**
+	 * ブランチを記憶するフィールド
 	 */
 	private ArrayList<Branch> branches;
 
-	/*
-	 * ノードを記録するフィールド。
+	/**
+	 * ノードを記録するフィールド
 	 */
 	private ArrayList<Node> nodes;
 
-	/*
-	 * 座標空間内の領域を記憶するフィールド。
+	/**
+	 * 座標空間内の領域を記憶するフィールド
 	 */
 	private Rectangle bounds;
 
 	/**
-	 * このクラスのインスタンスを生成するコンストラクタ。
+	 * このクラスのインスタンスを生成するコンストラクタ
 	 */
 	public Forest() {
 		this.nodes = new ArrayList<Node>();
@@ -185,7 +185,7 @@ public class Forest extends Object {
 	}
 
 	/**
-	 * フォレストの根元（ルート）となるノード群を応答するメソッドです。
+	 * フォレストの根元（ルート）となるノード群を応答するメソッド
 	 * @return ルート
 	 */
 	public ArrayList<Node> rootNodes() {

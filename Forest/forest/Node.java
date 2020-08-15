@@ -8,7 +8,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.FontMetrics;
-import java.awt.Font;
 
 import javax.swing.SwingUtilities;
 
@@ -37,18 +36,8 @@ public class Node extends Component {
 	 */
 	private Integer status;
 
-	/**
-	 * ノードにおいてラベルを描く際の枠線からの余裕（マージン）を表す。
-	 */
-	private Point margin = new Point(2, 1);
-
-	/**
-	 * ノードを描く際のラベルのフォントを表します。
-	 */
-	private Font defaultFont = new Font("Monospaced", Font.PLAIN, 12);
-
 	/** 
-	 * このクラスのインスタンスを生成するコンストラクタ。
+	 * このクラスのインスタンスを生成するコンストラクタ
 	 * @param aString ノード名：ラベル文字列
 	*/
 	public Node(String aString) {
@@ -57,8 +46,8 @@ public class Node extends Component {
 		this.setLocation(new Point(0,0));
 
 		// ノード名のラベル文字列のフォント情報から幅と高さを計算する。
-		Integer width = this.stringWidth(this.name) + (this.margin.x * 2);
-		Integer height = this.stringHeight(this.name) + (this.margin.y * 2);
+		Integer width = this.stringWidth(this.name) + (Constants.Margin.x * 2);
+		Integer height = this.stringHeight(this.name) + (Constants.Margin.y * 2);
 		this.setExtent(new Point(width, height));
 
 		// 樹状整列のノードのステータス（状態）を未定として初期化する。
@@ -82,15 +71,15 @@ public class Node extends Component {
 		// ノード（節）の名前（ラベル）を描き出すための座標を計算する。
 		String aString = this.getName();
 		Point aPoint = (this.getBounds()).getLocation();
-		aPoint.translate(this.margin.x, this.extent.y - this.margin.y - 2);
+		aPoint.translate(Constants.Margin.x, this.extent.y - Constants.Margin.y - 2);
 
 		// ノード（節）の名前（ラベル）描き出す。
-		aGraphics2D.setFont(this.defaultFont);
+		aGraphics2D.setFont(Constants.DefaultFont);
 		aGraphics2D.drawString(aString, aPoint.x, aPoint.y);
 		return;
 	}
 	/**
-	 * ノード（節）の描画領域を応答するメソッド。
+	 * ノード（節）の描画領域を応答するメソッド
 	 * @return ノード（節）の描画領域（Rectangleのインスタンス）
 	 */
 	@Override
@@ -99,30 +88,30 @@ public class Node extends Component {
 		return aRectangle;
 	}
 	/**
-	 * ノード（節）の大きさを応答するメソッド。
+	 * ノード（節）の大きさを応答するメソッド
 	 * @return ノード（節）の大きさ（幅と高さ）
 	 */
 	public Point getExtent() { return this.extent; }
 
 	/**
-	 * ノード（節）の位置を応答するメソッド。
+	 * ノード（節）の位置を応答するメソッド
 	 * @return ノード（節）の位置（座標）
 	 */
 	public Point getLocation() { return this.location; }
 	/**
-	 * ノード（節）の名前を応答するメソッド。
+	 * ノード（節）の名前を応答するメソッド
 	 * @return ノード名（ラベル文字列）
 	 */
 	@Override
 	public String getName() { return this.name; }
 
 	/**
-	 * ノード（節）の状態を応答するメソッド。
+	 * ノード（節）の状態を応答するメソッド
 	 * @return ノードの状態
 	 */
 	public Integer getStatus() { return this.status; }
 	/**
-	 * ノード（節）の大きさを設定するメソッド。
+	 * ノード（節）の大きさを設定するメソッド
 	 * @param aPoint ノードの大きさ（幅と高さ）
 	 */
 	public void setExtent(Point aPoint) {
@@ -131,7 +120,7 @@ public class Node extends Component {
 	}
 
 	/**
-	 * ノード（節）の位置を設定するメソッド。
+	 * ノード（節）の位置を設定するメソッド
 	 * @param aPoint ノードの位置（座標）
 	 */
 	@Override
@@ -141,7 +130,7 @@ public class Node extends Component {
 	}
 
 	/**
-	 * ノード（節）の名前を設定するメソッド。
+	 * ノード（節）の名前を設定するメソッド
 	 * @param aString ノードの名前（ラベル）
 	 */
 	@Override
@@ -151,7 +140,7 @@ public class Node extends Component {
 	}
 
 	/**
-	 * ノード（節）の状態を設定するメソッド。
+	 * ノード（節）の状態を設定するメソッド
 	 * @param anInteger ノードの状態
 	 */
 	public void setStatus(Integer anInteger) {
@@ -160,24 +149,24 @@ public class Node extends Component {
 	}
 
 	/**
-	 * 文字列の高さを応答するメソッド。
+	 * 文字列の高さを応答するメソッド
 	 * @param string 文字列
 	 * @return 文字列の高さ
 	 */
-	protected int stringHeight(String string) { return this.defaultFont.getSize(); }
+	protected int stringHeight(String string) { return Constants.DefaultFont.getSize(); }
 
 	/**
-	 * 文字列の幅を応答するメソッド。
+	 * 文字列の幅を応答するメソッド
 	 * @param string 文字列
 	 * @return 文字列の幅
 	 */
 	protected int stringWidth(String string) {
-		FontMetrics fontMetrics = this.getFontMetrics(this.defaultFont);
+		FontMetrics fontMetrics = this.getFontMetrics(Constants.DefaultFont);
 		return SwingUtilities.computeStringWidth(fontMetrics, string);
 	}
 
 	/**
-	 * 自分自身を文字列に変換するメソッド。
+	 * 自分自身を文字列に変換するメソッド
 	 * @return 自分自身を表す文字列
 	 */
 	public String toString() {

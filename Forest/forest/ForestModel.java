@@ -5,8 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -18,16 +16,16 @@ import mvc.Model;
 import mvc.View;
 
 /**
- * 樹状整列におけるMVCのモデル（M）を担うクラス。
+ * 樹状整列におけるMVCのモデル（M）を担うクラス
  */
 public class ForestModel extends Model {
 	/**
-	 * 樹状整列それ自身を記憶しておくフィールド。
+	 * 樹状整列それ自身を記憶しておくフィールド
 	 */
 	private Forest forest;
 
 	/**
-	 * このクラスのインスタンスを生成するコンストラクタ。
+	 * このクラスのインスタンスを生成するコンストラクタ
 	 * @param aFile 樹状整列データファイル
 	 */
 	public ForestModel(File aFile) {
@@ -42,7 +40,7 @@ public class ForestModel extends Model {
 	}
 
 	/**
-	 * アニメーションを行うメソッド。
+	 * アニメーションを行うメソッド
 	 */
 	public void animate() {
 		// フォレストの樹状整列に自分を引数で渡すので、propagateによりアニメーションが行われる。
@@ -53,7 +51,7 @@ public class ForestModel extends Model {
 	}
 
 	/**
-	 * 樹状整列を行うメソッド。
+	 * 樹状整列を行うメソッド
 	 */
 	public void arrange() {
 		// フォレストの樹状整列に引数無しですので、アニメーションは行われない。
@@ -63,7 +61,7 @@ public class ForestModel extends Model {
 	}
 
 	/**
-	 * 自分自身が変化したことを依存物たちに連絡（updateを依頼）するメソッド。
+	 * 自分自身が変化したことを依存物たちに連絡（updateを依頼）するメソッド
 	 */
 	@Override
 	public void changed() {
@@ -89,13 +87,13 @@ public class ForestModel extends Model {
 	}
 
 	/**
-	 * 樹状整列それ自身を応答するメソッド。
+	 * 樹状整列それ自身を応答するメソッド
 	 * @return 樹状整列それ自身
 	 */
 	public Forest forest() { return this.forest; }
 
 	/**
-	 * 樹状整列データファイルから樹状整列それ自身を生成するメソッド。
+	 * 樹状整列データファイルから樹状整列それ自身を生成するメソッド
 	 * @param aFile 樹状整列データファイル
 	 */
 	protected void read(File aFile) throws IOException {
@@ -150,8 +148,8 @@ public class ForestModel extends Model {
 		return;
 	}
 	/**
-	 * 樹状整列の根元（ルート）になるノードを探し出して応答するメソッド。
-	 * @return ルートノード、ただし、見つからないときはnullを応答する。
+	 * 樹状整列の根元（ルート）になるノードを探し出して応答するメソッド
+	 * @return ルートノード、ただし、見つからないときはnullを応答する
 	 */
 	public Node root() {
 		ArrayList<Node> roots = this.roots();

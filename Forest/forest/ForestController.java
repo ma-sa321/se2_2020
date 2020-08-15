@@ -6,7 +6,7 @@ import mvc.Controller;
 
 public class ForestController extends Controller {
 	/**
-	 * このクラスのインスタンスを生成するコンストラクタ。
+	 * このクラスのインスタンスを生成するコンストラクタ
 	 */
 	public ForestController() {
 		super();
@@ -14,7 +14,7 @@ public class ForestController extends Controller {
 	}
 
 	/**
-	 * マウスをクリックした時に動作するメソッド。
+	 * マウスをクリックした時に動作するメソッド
 	 * @param aMouseEvent マウスイベント
 	 */
 	@Override
