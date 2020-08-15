@@ -1,28 +1,27 @@
 package forest;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 
 /**
- * 樹状整列におけるMVCのモデル（M）を担うクラスになります。
+ * 樹状整列におけるMVCのモデル（M）を担うクラス
 */
 public class Branch extends Object
 {
     /**
-     * ブランチ（枝）の始点となるノードを記憶するフィールドです。
+     * ブランチ（枝）の始点となるノードを記憶するフィールド
      */
     private Node start;
 
     /**
-     * ブランチ（枝）の終点となるノードを記憶するフィールドです。
+     * ブランチ（枝）の終点となるノードを記憶するフィールド
      */
     private Node end;
 
     /**
-     * このクラスのインスタンスを生成するコンストラクタです。
+     * このクラスのインスタンスを生成するコンストラクタ
      * @param from ブランチ（枝）の始点となるノード
      * @param to ブランチ（枝）の終点となるノード
      */
@@ -34,7 +33,7 @@ public class Branch extends Object
     }
 
     /**
-     * ブランチ（枝）を描画するメソッドです。
+     * ブランチ（枝）を描画するメソッド
      * @param aGraphics グラフィクス（描画コンテクスト）
      */
     public void draw(Graphics aGraphics) {
@@ -62,19 +61,19 @@ public class Branch extends Object
     }
 
     /**
-     * ブランチ（枝）の終点となるノードを応答するメソッドです。
+     * ブランチ（枝）の終点となるノードを応答するメソッド
      * @return 終点ノード
      */
     public Node end() { return this.end; }
 
     /**
-     * ブランチ（枝）の始点となるノードを応答するメソッドです。
+     * ブランチ（枝）の始点となるノードを応答するメソッド
      * @return 始点ノード
      */
     public Node start() { return this.start; }
 
     /**
-     * 自分自身を文字列に変換するメソッドです。
+     * 自分自身を文字列に変換するメソッド
      * @return 自分自身を表す文字列
      */
     public String toString() {
