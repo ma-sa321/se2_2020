@@ -8,20 +8,27 @@ import java.awt.Rectangle;
 import java.awt.Graphics;
 
 /**
- * Forestクラス
- *
+ * 樹状整列を担うクラス
  */
 public class Forest extends Object {
 
+	/**
+	 * ブランチを記憶するフィールド
+	 */
 	private ArrayList<Branch> branches;
 
+	/**
+	 * ノードを記録するフィールド
+	 */
 	private ArrayList<Node> nodes;
 
+	/**
+	 * 座標空間内の領域を記憶するフィールド
+	 */
 	private Rectangle bounds;
 
 	/**
-	 * Forestのコンストラクタ 
-	 *
+	 * このクラスのインスタンスを生成するコンストラクタ
 	 */
 	public Forest() {
 		this.nodes = new ArrayList<Node>();
@@ -33,7 +40,6 @@ public class Forest extends Object {
 	/**
 	 * ブランチを追加するメソッド
 	 * @param aBranch ブランチ
-	 *
 	 */
 	public void addBranch(Branch aBranch) {
 		this.branches.add(aBranch);
@@ -44,7 +50,6 @@ public class Forest extends Object {
 	/**
 	 * ノードを追加するメソッド
 	 * @param aNode　ノード
-	 *
 	 */
 	public void addNode(Node aNode) {
 		this.nodes.add(aNode);
@@ -54,7 +59,6 @@ public class Forest extends Object {
 
 	/**
 	 * 樹状整列のトップのメソッド
-	 *
 	 */
 	public void arrange() {
 		try { this.arrange(null); }
@@ -64,7 +68,7 @@ public class Forest extends Object {
 
 	/**
 	 * 樹状整列のセカンドレベルのメソッド
-	 * @param aModel
+	 * @param aModel モデル
 	 */
 	public void arrange(ForestModel aModel) {
 		Integer counter = 0;
@@ -86,10 +90,10 @@ public class Forest extends Object {
 
 	/**
 	 * 樹状整列の再帰レベルのメソッド
-	 * @param aNode
-	 * @param aPoint
-	 * @param aModel
-	 * @return
+	 * @param aNode ノード
+	 * @param aPoint 座標
+	 * @param aModel モデル
+	 * @return 座標
 	 */
 	protected Point arrange(Node aNode, Point aPoint, ForestModel aModel) {
 		aNode.setStatus(Constants.Visited);
@@ -136,7 +140,8 @@ public class Forest extends Object {
 	}
 
 	/**
-	 *
+	 * 描画領域を応答するメソッド
+	 * @return 描画領域
 	 */
 	public Rectangle bounds() {
 		if (this.bounds == null) this.bounds = new Rectangle();
@@ -145,7 +150,8 @@ public class Forest extends Object {
 	}
 
 	/**
-	 *
+	 * フォレストを描くメソッド
+	 * @param aGraphics グラフィックス（描画コンテクスト）
 	 */
 	public void draw(Graphics aGraphics) {
 		this.branches.forEach( aBranch -> aBranch.draw(aGraphics) );
@@ -153,7 +159,7 @@ public class Forest extends Object {
 	}
 
 	/**
-	 *
+	 * 描画領域をリセットするメソッド
 	 */
 	public void flushBounds() {
 		this.bounds = null;
@@ -162,6 +168,7 @@ public class Forest extends Object {
 
 	/**
 	 * チックタックの間、スリープし、モデルが変化したと騒ぐメソッド
+	 * @param aModel モデル
 	 */
 	protected void propagate(ForestModel aModel) {
 		if(!(aModel == null)) {
@@ -178,8 +185,8 @@ public class Forest extends Object {
 	}
 
 	/**
-	 * フォレストの根元（ルート）となるノード群を応答するメソッドです。
-	 * @return
+	 * フォレストの根元（ルート）となるノード群を応答するメソッド
+	 * @return ルート
 	 */
 	public ArrayList<Node> rootNodes() {
 		ArrayList<Node> endList = new ArrayList<>();
@@ -225,7 +232,6 @@ public class Forest extends Object {
 	 * 親ノードを返すメソッド
 	 * @param aNode ノード
 	 * @return 親ノード
-	 *
 	 */
 	public ArrayList<Node> superNode(Node aNode) {
 		ArrayList<Node> nodeList = new ArrayList<>();
@@ -235,7 +241,7 @@ public class Forest extends Object {
 
 	/**
 	 * クラスを文字列に変換するメソッド
-	 * @return
+	 * @return 自分自身を表す文字列
 	 */
 	public String toString() {
 		StringBuffer aBuffer = new StringBuffer();
@@ -253,6 +259,7 @@ public class Forest extends Object {
 
 	/**
 	 * 座標にノードが存在するかどうかを調べるメソッド
+	 * @param aPoint 座標
 	 * @return aNode もしくはnull
 	 */
 	public Node whichOfNodes(Point aPoint) {
