@@ -99,9 +99,9 @@ public class ForestModel extends Model {
 	protected void read(File aFile) throws IOException {
 		BufferedReader readStream = new BufferedReader(new FileReader(aFile));
 		// 樹状整列データファイルを読み込んで、ツリー（木）たち、ノード（節）たち、ブランチ（枝）たち、を割り出す。
-		List<String> trees = new ArrayList<String>();
-		List<String> nodes = new ArrayList<String>();
-		List<String> branches = new ArrayList<String>();
+		List<String> trees = new ArrayList<>();
+		List<String> nodes = new ArrayList<>();
+		List<String> branches = new ArrayList<>();
 		String string = new String();
 		String status = new String(); // treesかnodesかbranchesのどの状態か区別する
 		// 一行ずつ読み込む
