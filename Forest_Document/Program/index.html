@@ -423,6 +423,7 @@ public class ForestModel extends Model {
 	/**
 	 * 樹状整列データファイルから樹状整列それ自身を生成するメソッド
 	 * @param aFile 樹状整列データファイル
+	 * @throws IOException
 	 */
 	protected void read(File aFile) throws IOException {
 		BufferedReader readStream = new BufferedReader(new FileReader(aFile));
@@ -501,7 +502,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.Point;
 import mvc.View;
-
+/**
+ * 樹状整列におけるMVCのビュー（V）を担うクラス
+ */
 @SuppressWarnings("serial")
 public class ForestView extends View {
 
@@ -563,7 +566,9 @@ package forest;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import mvc.Controller;
-
+/**
+ * 樹状整列におけるMVCのコントローラー（C）を担うクラス
+ */
 public class ForestController extends Controller {
 	/**
 	 * このクラスのインスタンスを生成するコンストラクタ

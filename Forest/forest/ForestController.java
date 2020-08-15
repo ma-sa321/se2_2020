@@ -3,7 +3,9 @@ package forest;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import mvc.Controller;
-
+/**
+ * 樹状整列におけるMVCのコントローラー（C）を担うクラス
+ */
 public class ForestController extends Controller {
 	/**
 	 * このクラスのインスタンスを生成するコンストラクタ
