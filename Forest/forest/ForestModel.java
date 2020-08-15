@@ -95,7 +95,7 @@ public class ForestModel extends Model {
 	/**
 	 * 樹状整列データファイルから樹状整列それ自身を生成するメソッド
 	 * @param aFile 樹状整列データファイル
-	 * @throws IOException
+	 * @throws IOException 指定のファイルが見つかりません。
 	 */
 	protected void read(File aFile) throws IOException {
 		BufferedReader readStream = new BufferedReader(new FileReader(aFile));
